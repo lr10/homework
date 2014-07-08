@@ -4,5 +4,7 @@
     <string name="app_name">Opinion Activity</string>
     <string name="portrait_mode">I feel so tall!</string>
     <string name="landscape_mode">The world looks flat.</string>
+    <string name="title_activity_state">StateActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
