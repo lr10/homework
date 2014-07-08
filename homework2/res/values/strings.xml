@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CST407_HW2</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Opinion Activity</string>
+    <string name="portrait_mode">I feel so tall!</string>
+    <string name="landscape_mode">The world looks flat.</string>
 
 </resources>
