@@ -6,5 +6,12 @@
     <string name="landscape_mode">The world looks flat.</string>
     <string name="title_activity_state">StateActivity</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
 
 </resources>
