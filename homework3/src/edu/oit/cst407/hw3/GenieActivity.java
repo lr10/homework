@@ -27,19 +27,19 @@ public class GenieActivity<MainActivity> extends Activity {
 		b1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((Button)v).setText("1");
+				((Button)v).setEnabled(false);
 			}
 		});
 		b2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((Button)v).setText("2");
+				((Button)v).setEnabled(false);
 			}
 		});
 		b3.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((Button)v).setText("3");
+				((Button)v).setEnabled(false);
 			}
 		});
 	}
