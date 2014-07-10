@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CST407_HW3</string>
+    <string name="app_name">Genie Activity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="b_one">Wish 1</string>
+    <string name="b_two">Wish 2</string>
+    <string name="b_three">Wish 3</string>
 
 </resources>
