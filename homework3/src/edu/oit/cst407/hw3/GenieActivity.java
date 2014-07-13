@@ -4,22 +4,20 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 public class GenieActivity extends Activity {
 
 	private static final String TAG = "SavePreferences: ";
-	private Button[] buttons = new Button[3];
-	private boolean [] boolButtonsClicked = new boolean[3];
+	private ToggleButton [] toggleButtons = new ToggleButton[3];
+	private boolean [] toggleButtonsClicked = new boolean[3];
+	private static final String t_BUTTON1_STATE = "t_button1_State";
+	private static final String t_BUTTON2_STATE = "t_button2_State";
+	private static final String t_BUTTON3_STATE = "t_button3_State";
 	
 	private SharedPreferences prefs;
 	private String prefName = "MyPref";
-	private static final String BUTTON1_STATE = "button1_State";
-	private static final String BUTTON2_STATE = "button2_State";
-	private static final String BUTTON3_STATE = "button3_State";
-	
 	public int idx;
 	
 
@@ -29,30 +27,43 @@ public class GenieActivity extends Activity {
 		setContentView(R.layout.activity_genie);
 		Log.v(TAG, "onCreate()");
 		
-		buttons[0] = (Button)findViewById(R.id.button1);
-		buttons[1] = (Button)findViewById(R.id.button2);
-		buttons[2] = (Button)findViewById(R.id.button3);
+		toggleButtons[0] = (ToggleButton) findViewById(R.id.toggleButton1);
+		toggleButtons[1] = (ToggleButton) findViewById(R.id.toggleButton2);
+		toggleButtons[2] = (ToggleButton) findViewById(R.id.toggleButton3);
 		
-		buttons[0].setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((Button)v).setEnabled(false);
-				boolButtonsClicked[0] = true;
-			}
+		
+		toggleButtons[0].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) {
+		            // The toggle is enabled
+		        	toggleButtons[0].setChecked(true);
+		        } /*else {
+		            // The toggle is disabled
+		        	toggleButtons[0].setEnabled(false);
+		        }*/
+		    }
 		});
-		buttons[1].setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((Button)v).setEnabled(false);
-				boolButtonsClicked[1] = true;
-			}
+		toggleButtons[1].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) {
+		            // The toggle is enabled
+		        	toggleButtons[1].setChecked(true);
+		        } /*else {
+		            // The toggle is disabled
+		        	toggleButtons[1].setEnabled(false);
+		        }*/
+		    }
 		});
-		buttons[2].setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((Button)v).setEnabled(false);
-				boolButtonsClicked[2] = true;
-			}
+		toggleButtons[2].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) {
+		            // The toggle is enabled
+		        	toggleButtons[2].setChecked(true);
+		        } /*else {
+		            // The toggle is disabled
+		        	toggleButtons[2].setEnabled(false);
+		        }*/
+		    }
 		});
 	}
 	
@@ -62,25 +73,28 @@ public class GenieActivity extends Activity {
 		super.onPause();
 		Log.v(TAG, "onPause()");
 		
-		for( idx = 0; idx < buttons.length; ++idx)
+		for( idx = 0; idx < toggleButtons.length; ++idx)
 		{
-			if( !buttons[idx].isEnabled() )
+			
+			if( toggleButtons[idx].isChecked() )
 			{
-				boolButtonsClicked[idx] = true;
+				toggleButtonsClicked[idx] = true;
 			}
 			else
 			{
-				boolButtonsClicked[idx] = false;
+				toggleButtonsClicked[idx] = false;
 			}
 		}
 		
-		
 		prefs = getSharedPreferences(prefName, MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean(BUTTON1_STATE, boolButtonsClicked[0]);
-		editor.putBoolean(BUTTON2_STATE, boolButtonsClicked[1]);
-		editor.putBoolean(BUTTON3_STATE, boolButtonsClicked[2]);
+		editor.putBoolean(t_BUTTON1_STATE, toggleButtonsClicked[0]);
+		editor.putBoolean(t_BUTTON2_STATE, toggleButtonsClicked[1]);
+		editor.putBoolean(t_BUTTON3_STATE, toggleButtonsClicked[2]);
 		editor.commit();
+		
+		//editor.clear();
+		//editor.commit();
 	}
 
 	@Override
@@ -90,42 +104,20 @@ public class GenieActivity extends Activity {
 		Log.v(TAG, "onResume()");
 		
 		prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-		boolButtonsClicked[0] = prefs.getBoolean(BUTTON1_STATE, false);
-		boolButtonsClicked[1] = prefs.getBoolean(BUTTON2_STATE, false);
-		boolButtonsClicked[2] = prefs.getBoolean(BUTTON3_STATE, false);
+		toggleButtonsClicked[0] = prefs.getBoolean(t_BUTTON1_STATE, false);
+		toggleButtonsClicked[1] = prefs.getBoolean(t_BUTTON2_STATE, false);
+		toggleButtonsClicked[2] = prefs.getBoolean(t_BUTTON3_STATE, false);
 		
-		for( idx = 0; idx < boolButtonsClicked.length; ++idx)
+		for( idx = 0; idx < toggleButtonsClicked.length; ++idx)
 		{
-			if( boolButtonsClicked[idx] == true )
+			if( toggleButtonsClicked[idx] == true )
 			{
-				buttons[idx].setEnabled(false);
+				toggleButtons[idx].setChecked(true);
 			}
 			else
 			{
-				buttons[idx].setEnabled(true);
+				toggleButtons[idx].setChecked(false);
 			}
 		}
-	}
-
-	
-	@Override
-	protected void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-		Log.v(TAG, "onStart()");
-	}
-
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-		Log.v(TAG, "onStop()");
-	}
-
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		Log.v(TAG, "onDestroy()");
 	}
 }

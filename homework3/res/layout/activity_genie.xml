@@ -6,22 +6,49 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/b_one" />
+        android:gravity="center"
+        android:text="@string/b_one"
+        android:textSize="26sp" />
 
-    <Button
-        android:id="@+id/button2"
+    <ToggleButton
+        android:id="@+id/toggleButton1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/b_two" />
+        android:text="@string/b_one"
+        android:textSize="28sp" />
 
-    <Button
-        android:id="@+id/button3"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/b_three" />
+        android:gravity="center"
+        android:text="@string/b_two"
+        android:textSize="26sp" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/b_two"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/b_three"
+        android:textSize="26sp" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/b_three"
+        android:textSize="28sp" />
 
 </LinearLayout>
