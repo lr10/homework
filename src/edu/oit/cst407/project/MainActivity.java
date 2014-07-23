@@ -1,6 +1,7 @@
 package edu.oit.cst407.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,23 +26,23 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
-		MenuInflater mif = getMenuInflater();
-		mif.inflate(R.menu.activity_main_action, menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_main_action, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected( MenuItem item ) {
-		
+				
 		switch(item.getItemId())
 		{
 			case R.id.action_newgame :
 				newgameClicked();
-				break;
+				return true;
 			
 			case R.id.action_settings :
 				settingsClicked(); 
-				break;
+				return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
@@ -49,10 +50,14 @@ public class MainActivity extends Activity {
 	
 	public void newgameClicked() {
 	    // do something
+		Intent gameIntent = new Intent(MainActivity.this, GameActivity.class);
+		startActivity(gameIntent);
 	} 
 	
 	public void settingsClicked() {
 	    // do something
+		Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+		startActivity(settingsIntent);
 	} 
 	
 }
