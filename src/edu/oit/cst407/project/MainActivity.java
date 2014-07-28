@@ -50,13 +50,13 @@ public class MainActivity extends Activity {
 	
 	public void newgameClicked() {
 	    // do something
-		Intent gameIntent = new Intent(MainActivity.this, GameActivity.class);
+		Intent gameIntent = new Intent(this, GameActivity.class);
 		startActivity(gameIntent);
 	} 
 	
 	public void settingsClicked() {
 	    // do something
-		Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+		Intent settingsIntent = new Intent(this, SettingsActivity.class);
 		startActivity(settingsIntent);
 	} 
 	
