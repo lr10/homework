@@ -30,7 +30,7 @@ public class GameActivity extends Activity {
 		switch(item.getItemId())
 		{
 			case R.id.action_save :
-				savegameClicked();
+				saveGameClicked();
 				return true;
 			
 			case R.id.action_cancel :
@@ -41,7 +41,7 @@ public class GameActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void savegameClicked() {
+	public void saveGameClicked() {
 	    // do something
 		//Intent gameIntent = new Intent(this, GameActivity.class);
 		//startActivity(gameIntent);
