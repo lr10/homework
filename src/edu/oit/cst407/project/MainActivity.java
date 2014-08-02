@@ -2,28 +2,38 @@ package edu.oit.cst407.project;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.location.Location;
-import android.location.LocationListener;
+import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends Activity implements LocationListener {
 
-	private GoogleMap map;
+	public GoogleMap googleMap;
+	
+	private LatLng myPosition;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-		map.setMyLocationEnabled(true);
-		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		googleMap.setMyLocationEnabled(true);
+		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		
+		
 	}
 	
 	@Override
@@ -65,7 +75,6 @@ public class MainActivity extends Activity implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

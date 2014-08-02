@@ -7,14 +7,46 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
 
 public class SettingsActivity extends Activity {
 
+	private Button normalBtn;
+	private Button hybridBtn;
+	private Button satelliteBtn;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
+		
+		normalBtn = (Button) findViewById(R.id.normalButton);
+		hybridBtn = (Button) findViewById(R.id.hybridButton);
+		satelliteBtn = (Button) findViewById(R.id.satelliteButton);
+		
+		normalBtn.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		        // Do something in response to button click
+		    	//googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+		    }
+		});
+		hybridBtn.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		        // Do something in response to button click
+		    	//googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+		    }
+		});
+		satelliteBtn.setOnClickListener(new View.OnClickListener() {
+		    public void onClick(View v) {
+		        // Do something in response to button click
+		    	//googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+		    }
+		});
 	}
 	
 	@Override

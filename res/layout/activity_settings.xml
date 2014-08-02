@@ -63,7 +63,7 @@
         android1:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android1:id="@+id/editText1"
+        android1:id="@+id/myAddress"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_alignBaseline="@+id/textView1"
@@ -82,47 +82,47 @@
         android1:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android1:id="@+id/editText2"
+        android1:id="@+id/milesRadius"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_alignBaseline="@+id/textView6"
         android1:layout_alignBottom="@+id/textView6"
-        android1:layout_alignLeft="@+id/button3"
+        android1:layout_alignLeft="@+id/satelliteButton"
         android1:layout_toLeftOf="@+id/textView6"
         android1:inputType="number" />
 
     <Button
-        android1:id="@+id/button1"
+        android1:id="@+id/normalButton"
         style="?android:attr/buttonStyleSmall"
         android1:layout_width="120dp"
         android1:layout_height="60dp"
         android1:layout_alignBaseline="@+id/textView5"
         android1:layout_alignBottom="@+id/textView5"
-        android1:layout_toLeftOf="@+id/button2"
+        android1:layout_toLeftOf="@+id/hybridButton"
         android1:text="@string/normal" />
 
     <Button
-        android1:id="@+id/button2"
+        android1:id="@+id/hybridButton"
         style="?android:attr/buttonStyleSmall"
         android1:layout_width="120dp"
         android1:layout_height="60dp"
-        android1:layout_alignBaseline="@+id/button1"
-        android1:layout_alignBottom="@+id/button1"
-        android1:layout_toLeftOf="@+id/button3"
+        android1:layout_alignBaseline="@+id/normalButton"
+        android1:layout_alignBottom="@+id/normalButton"
+        android1:layout_toLeftOf="@+id/satelliteButton"
         android1:text="@string/hybrid" />
 
     <Button
-        android1:id="@+id/button3"
+        android1:id="@+id/satelliteButton"
         style="?android:attr/buttonStyleSmall"
         android1:layout_width="120dp"
         android1:layout_height="60dp"
-        android1:layout_alignBaseline="@+id/button2"
-        android1:layout_alignBottom="@+id/button2"
+        android1:layout_alignBaseline="@+id/hybridButton"
+        android1:layout_alignBottom="@+id/hybridButton"
         android1:layout_alignParentRight="true"
         android1:text="@string/satellite" />
 
     <Switch
-        android1:id="@+id/switch2"
+        android1:id="@+id/remindersSwitch"
         android1:layout_width="140dp"
         android1:layout_height="80dp"
         android1:layout_alignBaseline="@+id/textView3"
@@ -131,7 +131,7 @@
         android1:text="@string/empty" />
 
     <Switch
-        android1:id="@+id/switch1"
+        android1:id="@+id/pushSwitch"
         android1:layout_width="140dp"
         android1:layout_height="80dp"
         android1:layout_alignBaseline="@+id/textView2"
