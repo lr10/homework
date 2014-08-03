@@ -32,7 +32,7 @@
 	<!-- Settings Activity --> 
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
-    <string name="my_address">My address:</string>
+    <string name="default_address">Default address:</string>
     <string name="push">Push notifications:</string>
     <string name="reminders">Game reminders:</string>
     <string name="radius">Find games within:</string>

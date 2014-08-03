@@ -137,7 +137,7 @@
         android1:text="@string/grass" />
 
     <EditText
-        android1:id="@+id/myAddress"
+        android1:id="@+id/defaultAddress"
         android1:layout_width="100dp"
         android1:layout_height="wrap_content"
         android1:layout_alignParentRight="true"
