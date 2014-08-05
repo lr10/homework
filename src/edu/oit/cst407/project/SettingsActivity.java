@@ -1,7 +1,6 @@
 package edu.oit.cst407.project;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -191,16 +190,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		}
 		
 		
-		
-		// add marker at address location
 		// zoom camera in based on radius
 		
 		// touch notification
-		Context context = getApplicationContext();
-		CharSequence text = "Preferences saved.";
-		int duration = Toast.LENGTH_SHORT;
-
-		Toast toast = Toast.makeText(context, text, duration);
+		Toast toast = Toast.makeText(getApplicationContext(), "Preferences saved.", Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
 		finish();

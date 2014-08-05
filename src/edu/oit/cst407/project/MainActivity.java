@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,6 +25,8 @@ public class MainActivity extends Activity implements LocationListener {
 	private final LatLng LOCATION_OIT = new LatLng(45.321722, -122.766344);
 	static final int MAP_REQUEST = 1;
 	
+	public DBAdapter myDb;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +34,36 @@ public class MainActivity extends Activity implements LocationListener {
 		setContentView(R.layout.activity_main);
 		
 		setUpMapIfNeeded();
+		
+		Toast toast = Toast.makeText(getApplicationContext(), "Press and hold a location on the map to create a new game.", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		toast.show();
+		
+		openDB();
 	}
 	
 	@Override 
 	protected void onResume() {
 		super.onResume();
-		
 		setUpMapIfNeeded();
 	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		closeDB();
+	}
+
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	
+	private void closeDB() {
+		myDb.close();
+	}
+	
 	
 	private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -49,10 +76,38 @@ public class MainActivity extends Activity implements LocationListener {
             // Check if we were successful in obtaining the map.
             if (googleMap != null) {
             
-            	googleMap.addMarker(new MarkerOptions().position(LOCATION_OIT).title("Oregon Institute of Technology"));
+            	//googleMap.addMarker(new MarkerOptions().position(LOCATION_OIT).title("Oregon Institute of Technology"));
             	googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(LOCATION_OIT, 15);
         		googleMap.animateCamera(update);
+        		
+        		googleMap.setOnMapLongClickListener(new OnMapLongClickListener() {
+        			
+        	        @Override
+        	        public void onMapLongClick(LatLng latLng) {
+
+        	            // Creating a marker
+        	            MarkerOptions markerOptions = new MarkerOptions();
+
+        	            // Setting the position for the marker
+        	            markerOptions.position(latLng);
+
+        	            // Setting the title for the marker.
+        	            // This will be displayed on taping the marker
+        	            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+        	            // Clears the previously touched position
+        	            googleMap.clear();
+
+        	            // Animating to the touched position
+        	            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        	            // Placing a marker on the touched position
+        	            //googleMap.addMarker(markerOptions);
+        	            
+        	            newgameClicked();
+        	        }
+        	    });
                 
             }
         }
@@ -70,9 +125,9 @@ public class MainActivity extends Activity implements LocationListener {
 				
 		switch(item.getItemId())
 		{
-			case R.id.action_newgame :
+			/*case R.id.action_newgame :
 				newgameClicked();
-				return true;
+				return true;*/
 			
 			case R.id.action_settings :
 				settingsClicked(); 
