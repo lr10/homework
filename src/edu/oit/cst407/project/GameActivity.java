@@ -8,9 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener {
@@ -18,18 +18,8 @@ public class GameActivity extends Activity implements OnClickListener {
 	private EditText addressText;
 	private EditText dateText;
 	private EditText timeText;
-	private Button maleBtn;
-	private Button femaleBtn;
-	private Button coedBtn;
 	private EditText minAgeText;
 	private EditText maxAgeText;
-	private Button indoorBtn;
-	private Button outdoorBtn;
-	private Button grassBtn;
-	private Button turfBtn;
-	private Button futsalBtn;
-	private SeekBar skillLevelBar;
-	private EditText maxNumText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,40 +34,64 @@ public class GameActivity extends Activity implements OnClickListener {
 		addressText = (EditText) findViewById(R.id.locationText);
 		dateText = (EditText) findViewById(R.id.dateText);
 		timeText = (EditText) findViewById(R.id.timeText);
-		maleBtn = (Button) findViewById(R.id.maleButton);
-		femaleBtn = (Button) findViewById(R.id.femaleButton);
-		coedBtn = (Button) findViewById(R.id.coedButton);
 		minAgeText = (EditText) findViewById(R.id.minAge);
 		maxAgeText = (EditText) findViewById(R.id.maxAge);
-		indoorBtn = (Button) findViewById(R.id.indoorButton);
-		outdoorBtn = (Button) findViewById(R.id.outdoorButton);
-		grassBtn = (Button) findViewById(R.id.grassButton);
-		turfBtn = (Button) findViewById(R.id.turfButton);
-		futsalBtn = (Button) findViewById(R.id.futsalButton);
-		skillLevelBar = (SeekBar) findViewById(R.id.skillLevelBar);
-		maxNumText = (EditText) findViewById(R.id.maxNum);
+		
+		//addressText.setText("Location");
 		
 		/*addressText.setOnClickListener(this);
 		dateText.setOnClickListener(this);
 		timeText.setOnClickListener(this);
-		maleBtn.setOnClickListener(this);
-		femaleBtn.setOnClickListener(this);
-		coedBtn.setOnClickListener(this);
 		minAgeText.setOnClickListener(this);
 		maxAgeText.setOnClickListener(this);
-		indoorBtn.setOnClickListener(this);
-		outdoorBtn.setOnClickListener(this);
-		grassBtn.setOnClickListener(this);
-		turfBtn.setOnClickListener(this);
-		futsalBtn.setOnClickListener(this);
-		skillLevelBar.setOnClickListener(this);
+		
+		skillLevelBar.setOnSeekBarChangeListener( new OnSeekBarChangeListener(){      
+
+		    @Override       
+		    public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {     
+		        // TODO Auto-generated method stub      
+
+		        //t1.setTextSize(progress);
+		        Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+
+		    }
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}       
+		});             
+		    
 		maxNumText.setOnClickListener(this);*/
 	}
 	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+		/*switch( v.getId())
+		{
+			case R.id.locationText : addressText.setText("");
+										break;
+										
+			case R.id.dateText	 	: dateText.setText("");
+										break;
+										
+			case R.id.timeText	 	: timeText.setPressed(true);
+										break;
+										
+			case R.id.minAge	 	: minAgeText.setText("");
+										break;
+			
+			case R.id.maxAge	 	: maxAgeText.setText("");
+										break;
+		}*/
 	}
 	
 	@Override
@@ -106,11 +120,16 @@ public class GameActivity extends Activity implements OnClickListener {
 	
 	public void saveGameClicked() {
 	
-		// save info and add marker at address location entered by user
+		// save info
 		//
 		//
 		//
-		
+		/*addressText.getText().toString();
+		dateText.getText().toString();
+		timeText.getText().toString();
+		minAgeText.getText().toString();
+		maxAgeText.getText().toString();
+		maxNumText.getText().toString();*/
 		
 		// touch notification
 		Toast toast = Toast.makeText(getApplicationContext(), "Game created!", Toast.LENGTH_SHORT);

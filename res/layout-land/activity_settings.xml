@@ -1,142 +1,158 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<RelativeLayout 
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
     android:layout_marginTop="10dp"
     android1:columnCount="1"
-    android1:orientation="vertical"
+    android1:orientation="horizontal"
     tools:context="${relativePackage}.${activityClass}" >
 
     <TextView
-        android1:id="@+id/textView1"
+        android1:id="@+id/gender"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android1:layout_alignParentLeft="true"
         android1:layout_alignParentTop="true"
         android1:text="@string/default_address"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
     
     <TextView
-        android1:id="@+id/textView2"
+        android1:id="@+id/push"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_alignParentLeft="true"
-        android1:layout_below="@+id/textView1"
+        android1:layout_below="@+id/gender"
         android1:layout_marginTop="65dp"
         android1:text="@string/push"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android1:id="@+id/textView3"
+        android1:id="@+id/reminders"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android:layout_marginTop="65dp"
         android1:layout_alignParentLeft="true"
-        android1:layout_below="@+id/textView2"
+        android1:layout_below="@+id/push"
         android1:text="@string/reminders"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android1:id="@+id/textView4"
+        android1:id="@+id/radius"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="70dp"
         android1:layout_alignParentLeft="true"
-        android1:layout_below="@+id/textView3"
+        android1:layout_below="@+id/reminders"
         android1:text="@string/radius"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android1:id="@+id/textView5"
+        android1:id="@+id/map"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="50dp"
         android1:layout_alignParentLeft="true"
-        android1:layout_below="@+id/textView4"
+        android1:layout_below="@+id/radius"
         android1:text="@string/map"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android1:id="@+id/defaultAddress"
+        android1:id="@+id/defaultLocation"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android1:layout_alignBaseline="@+id/textView1"
-        android1:layout_alignBottom="@+id/textView1"
+        android1:layout_alignBottom="@+id/gender"
+        android1:layout_alignLeft="@+id/radioGameType"
         android1:layout_alignParentRight="true"
-        android1:layout_toRightOf="@+id/textView4"
-        android1:inputType="textPostalAddress" />
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:hint="@string/locationHint"
+        android1:ems="10"
+        android1:inputType="textPostalAddress" >
 
-    <TextView
-        android1:id="@+id/textView6"
+        <requestFocus />
+    </EditText>
+
+    <Switch
+        android1:id="@+id/remindersSwitch"
         android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignBottom="@+id/textView4"
-        android1:layout_alignParentRight="true"
-        android1:text="@string/miles"
-        android1:textAppearance="?android:attr/textAppearanceMedium" />
+        android1:layout_height="80dp"
+        android1:layout_alignBaseline="@+id/reminders"
+        android1:layout_alignBottom="@+id/reminders"
+        android1:layout_alignLeft="@+id/pushSwitch"
+        android1:text="@string/empty" />
 
     <EditText
         android1:id="@+id/milesRadius"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android1:layout_alignBaseline="@+id/textView6"
-        android1:layout_alignBottom="@+id/textView6"
-        android1:layout_alignLeft="@+id/satelliteButton"
-        android1:layout_toLeftOf="@+id/textView6"
+        android1:layout_above="@+id/map"
+        android1:layout_alignLeft="@+id/remindersSwitch"
+        android1:layout_alignRight="@+id/remindersSwitch"
+        android1:ems="10"
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:hint="@string/milesHint"
+        android:gravity="center"
         android1:inputType="number" />
 
-    <Button
-        android1:id="@+id/normalButton"
-        style="?android:attr/buttonStyleSmall"
-        android1:layout_width="120dp"
-        android1:layout_height="60dp"
-        android1:layout_alignBaseline="@+id/textView5"
-        android1:layout_alignBottom="@+id/textView5"
-        android1:layout_toLeftOf="@+id/hybridButton"
-        android1:text="@string/normal" />
-
-    <Button
-        android1:id="@+id/hybridButton"
-        style="?android:attr/buttonStyleSmall"
-        android1:layout_width="120dp"
-        android1:layout_height="60dp"
-        android1:layout_alignBaseline="@+id/normalButton"
-        android1:layout_alignBottom="@+id/normalButton"
-        android1:layout_toLeftOf="@+id/satelliteButton"
-        android1:text="@string/hybrid" />
-
-    <Button
-        android1:id="@+id/satelliteButton"
-        style="?android:attr/buttonStyleSmall"
-        android1:layout_width="120dp"
-        android1:layout_height="60dp"
-        android1:layout_alignBaseline="@+id/hybridButton"
-        android1:layout_alignBottom="@+id/hybridButton"
-        android1:layout_alignParentRight="true"
-        android1:text="@string/satellite" />
-
-    <Switch
-        android1:id="@+id/remindersSwitch"
-        android1:layout_width="140dp"
-        android1:layout_height="80dp"
-        android1:layout_alignBaseline="@+id/textView3"
-        android1:layout_alignBottom="@+id/textView3"
-        android1:layout_alignParentRight="true"
-        android1:text="@string/empty" />
+    <TextView
+        android1:id="@+id/miles"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/milesRadius"
+        android1:layout_toRightOf="@+id/milesRadius"
+        android1:text="@string/miles"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Switch
         android1:id="@+id/pushSwitch"
-        android1:layout_width="140dp"
+        android1:layout_width="wrap_content"
         android1:layout_height="80dp"
-        android1:layout_alignBaseline="@+id/textView2"
-        android1:layout_alignBottom="@+id/textView2"
-        android1:layout_alignParentRight="true"
+        android1:layout_above="@+id/remindersSwitch"
+        android1:layout_alignLeft="@+id/defaultLocation"
         android1:text="@string/empty" />
 
+    <RadioGroup
+        android1:id="@+id/radioGameType"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/map"
+        android1:layout_alignParentRight="true"
+        android1:orientation="horizontal" >
+
+        <RadioButton
+            android1:id="@+id/normalRadio"
+            android1:layout_width="120dp"
+            android1:layout_height="wrap_content"
+            android1:checked="true"
+            android1:text="@string/normal"
+            android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RadioButton
+            android1:id="@+id/hybridRadio"
+            android1:layout_width="120dp"
+            android1:layout_height="wrap_content"
+            android1:text="@string/hybrid"
+            android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RadioButton
+            android1:id="@+id/satelliteRadio"
+            android1:layout_width="120dp"
+            android1:layout_height="wrap_content"
+            android1:text="@string/satellite"
+            android1:textAppearance="?android:attr/textAppearanceLarge" />
+    </RadioGroup>
+
 </RelativeLayout>
+
+</ScrollView>

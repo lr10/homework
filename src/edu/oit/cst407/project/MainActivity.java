@@ -1,17 +1,23 @@
 package edu.oit.cst407.project;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
@@ -26,6 +32,7 @@ public class MainActivity extends Activity implements LocationListener {
 	static final int MAP_REQUEST = 1;
 	
 	public DBAdapter myDb;
+	
 	
 	
 	@Override
@@ -66,6 +73,7 @@ public class MainActivity extends Activity implements LocationListener {
 	
 	
 	private void setUpMapIfNeeded() {
+		
         // Do a null check to confirm that we have not already instantiated the map.
         if (googleMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -76,10 +84,12 @@ public class MainActivity extends Activity implements LocationListener {
             // Check if we were successful in obtaining the map.
             if (googleMap != null) {
             
-            	//googleMap.addMarker(new MarkerOptions().position(LOCATION_OIT).title("Oregon Institute of Technology"));
+            	// Setting map type to Normal
             	googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(LOCATION_OIT, 15);
-        		googleMap.animateCamera(update);
+            	
+        		// Animating to OIT
+        		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LOCATION_OIT, 15));
+        		//googleMap.addMarker(new MarkerOptions().position(LOCATION_OIT).title("Oregon Institute of Technology"));
         		
         		googleMap.setOnMapLongClickListener(new OnMapLongClickListener() {
         			
@@ -92,25 +102,65 @@ public class MainActivity extends Activity implements LocationListener {
         	            // Setting the position for the marker
         	            markerOptions.position(latLng);
 
+        	            /*
         	            // Setting the title for the marker.
         	            // This will be displayed on taping the marker
         	            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-
+        	            */
+        	            
+        	            // Get address based on latitude and longitude
+        	            String loc = getAddress(latLng.latitude, latLng.longitude);
+        	            
+        	            // Setting the title for the marker.
+        	            // This will be displayed on taping the marker
+        	            markerOptions.title(loc);
+        	            
         	            // Clears the previously touched position
         	            googleMap.clear();
 
         	            // Animating to the touched position
         	            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        	            // Placing a marker on the touched position
-        	            //googleMap.addMarker(markerOptions);
-        	            
+        	            // Open GameActivity for user to create game
         	            newgameClicked();
+        	            
+        	            // IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
+        	            // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
+        	            //
+        	            // Placing a marker on the touched position
+        	            googleMap.addMarker(markerOptions);
+        	            
+        	            
         	        }
         	    });
                 
             }
         }
+    }
+	
+	private String getAddress(double latitude, double longitude) {
+        StringBuilder result = new StringBuilder();
+        try {
+	            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+	            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+	            
+	            if (addresses.size() > 0) {
+	                Address address = addresses.get(0);
+	                
+	                String locality=address.getLocality();
+		            String city=address.getCountryName();
+		            String region_code=address.getCountryCode();
+		            String zipcode=address.getPostalCode();
+		            
+	                result.append(locality+" ");
+		            result.append(city+" "+ region_code+" ");
+		            result.append(zipcode);
+            }
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+        }
+
+        return result.toString();
     }
 	
 	@Override

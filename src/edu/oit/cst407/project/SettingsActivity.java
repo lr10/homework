@@ -11,8 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -22,9 +22,9 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	private Switch pushSwitch;
 	private Switch reminderSwitch;
 	private EditText radiusText;
-	private Button normalBtn;
-	private Button hybridBtn;
-	private Button satelliteBtn;
+	private RadioButton normalRBtn;
+	private RadioButton hybridRBtn;
+	private RadioButton satelliteRBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +37,19 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	}
 	
 	private void setupVariables(){
-		addressText = (EditText) findViewById(R.id.defaultAddress);
+		addressText = (EditText) findViewById(R.id.defaultLocation);
 		pushSwitch = (Switch) findViewById(R.id.pushSwitch);
 		reminderSwitch = (Switch) findViewById(R.id.remindersSwitch);
 		radiusText = (EditText) findViewById(R.id.milesRadius);
-		normalBtn = (Button) findViewById(R.id.normalButton);
-		hybridBtn = (Button) findViewById(R.id.hybridButton);
-		satelliteBtn = (Button) findViewById(R.id.satelliteButton);
+		normalRBtn = (RadioButton) findViewById(R.id.normalRadio);
+		hybridRBtn = (RadioButton) findViewById(R.id.hybridRadio);
+		satelliteRBtn = (RadioButton) findViewById(R.id.satelliteRadio);
 		
 		addressText.setOnClickListener(this);
 		radiusText.setOnClickListener(this);
-		normalBtn.setOnClickListener(this);
-		hybridBtn.setOnClickListener(this);
-		satelliteBtn.setOnClickListener(this);
+		normalRBtn.setOnClickListener(this);
+		hybridRBtn.setOnClickListener(this);
+		satelliteRBtn.setOnClickListener(this);
 	}
 	
 	private void loadPrefs(){
@@ -60,9 +60,9 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		Boolean push = prefs.getBoolean("SHAREDPREF_ITEM_PUSH", false);
 		Boolean reminders = prefs.getBoolean("SHAREDPREF_ITEM_REMINDERS", false);
 		String radius = prefs.getString("SHAREDPREF_ITEM_RADIUS", "5");
-		Boolean normal = prefs.getBoolean("SHAREDPREF_ITEM_MAP_NORMAL", true);
-		Boolean hybrid = prefs.getBoolean("SHAREDPREF_ITEM_MAP_HYBRID", false);
-		Boolean satellite = prefs.getBoolean("SHAREDPREF_ITEM_MAP_SATELLITE", false);
+		Boolean normalR = prefs.getBoolean("SHAREDPREF_ITEM_MAP_NORMALR", true);
+		Boolean hybridR = prefs.getBoolean("SHAREDPREF_ITEM_MAP_HYBRIDR", false);
+		Boolean satelliteR = prefs.getBoolean("SHAREDPREF_ITEM_MAP_SATELLITER", false);
 		
 		addressText.setText(address);
 				
@@ -86,23 +86,23 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		
 		radiusText.setText(radius);
 		
-		if( normal == true )
+		if( normalR == true )
 		{
-			normalBtn.setSelected(true);
-			hybridBtn.setSelected(false);
-			satelliteBtn.setSelected(false);
+			normalRBtn.setSelected(true);
+			hybridRBtn.setSelected(false);
+			satelliteRBtn.setSelected(false);
 		}
-		else if( hybrid == true )
+		else if( hybridR == true )
 		{
-			hybridBtn.setSelected(true);
-			normalBtn.setSelected(false);
-			satelliteBtn.setSelected(false);
+			hybridRBtn.setSelected(true);
+			normalRBtn.setSelected(false);
+			satelliteRBtn.setSelected(false);
 		}
-		else if( satellite == true )
+		else if( satelliteR == true )
 		{
-			satelliteBtn.setSelected(true);
-			normalBtn.setSelected(false);
-			hybridBtn.setSelected(false);
+			satelliteRBtn.setSelected(true);
+			normalRBtn.setSelected(false);
+			hybridRBtn.setSelected(false);
 		}
 	}
 	
@@ -125,21 +125,20 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	
 		switch( v.getId())
 		{
-			case R.id.defaultAddress : addressText.setText("");
+			case R.id.defaultLocation : addressText.setText("");
 										break;
 										
 			case R.id.milesRadius	 : radiusText.setText("");
 										break;
 										
-			case R.id.normalButton	 : normalBtn.setPressed(true);
+			case R.id.normalRadio	 : normalRBtn.setPressed(true);
 										break;
-															
-			case R.id.hybridButton	 : hybridBtn.setSelected(true);
+								
+			case R.id.hybridRadio	 : hybridRBtn.setSelected(true);
 										break;
-						
-			case R.id.satelliteButton: satelliteBtn.setSelected(true);
+
+			case R.id.satelliteRadio: satelliteRBtn.setSelected(true);
 										break;
-			
 		}
 	}
 	
@@ -175,18 +174,17 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		savePrefs("SHAREDPREF_ITEM_REMINDERS", reminderSwitch.isChecked());
 		savePrefs("SHAREDPREF_ITEM_RADIUS", radiusText.getText().toString());
 		
-		
-		if( normalBtn.isSelected() )
+		if( normalRBtn.isSelected() )
 		{
-			savePrefs("SHAREDPREF_ITEM_MAP_NORMAL", true);
+			savePrefs("SHAREDPREF_ITEM_MAP_NORMALR", true);
 		}
-		else if( hybridBtn.isSelected() )
+		else if( hybridRBtn.isSelected() )
 		{
-			savePrefs("SHAREDPREF_ITEM_MAP_HYBRID", true);
+			savePrefs("SHAREDPREF_ITEM_MAP_HYBRIDR", true);
 		}
-		else if( satelliteBtn.isSelected())
+		else if( satelliteRBtn.isSelected())
 		{
-			savePrefs("SHAREDPREF_ITEM_MAP_SATELLITE", true);
+			savePrefs("SHAREDPREF_ITEM_MAP_SATELLITER", true);
 		}
 		
 		
