@@ -33,8 +33,6 @@ public class MainActivity extends Activity implements LocationListener {
 	
 	public DBAdapter myDb;
 	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

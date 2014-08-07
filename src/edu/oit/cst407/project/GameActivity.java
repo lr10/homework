@@ -9,17 +9,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener {
 
-	private EditText addressText;
+	//private EditText location;
 	private EditText dateText;
 	private EditText timeText;
 	private EditText minAgeText;
 	private EditText maxAgeText;
+	private RadioGroup radioGenderGroup; 
+	private RadioButton radioGenderBtn; 
+	private RadioGroup radioPitchGroup; 
+	private RadioButton radioPitchBtn; 
+	private RadioGroup radioGameTypeGroup; 
+	private RadioButton radioGameBtn;
+	private SeekBar skillLevelBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +41,19 @@ public class GameActivity extends Activity implements OnClickListener {
 	
 	private void setupVariables(){
 		
-		addressText = (EditText) findViewById(R.id.locationText);
+		// Widgets
+		//location = (EditText) findViewById(R.id.locationText);
 		dateText = (EditText) findViewById(R.id.dateText);
 		timeText = (EditText) findViewById(R.id.timeText);
 		minAgeText = (EditText) findViewById(R.id.minAge);
 		maxAgeText = (EditText) findViewById(R.id.maxAge);
+		skillLevelBar = (SeekBar) findViewById(R.id.skillLevelBar);
+		radioGenderGroup = (RadioGroup) findViewById(R.id.radioGender); 
+		radioPitchGroup = (RadioGroup) findViewById(R.id.radioPitch); 
+		radioGameTypeGroup = (RadioGroup) findViewById(R.id.radioGameType); 
 		
-		//addressText.setText("Location");
-		
-		/*addressText.setOnClickListener(this);
+		// Listeners
+		//location.setOnClickListener(this);
 		dateText.setOnClickListener(this);
 		timeText.setOnClickListener(this);
 		minAgeText.setOnClickListener(this);
@@ -67,18 +81,40 @@ public class GameActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				
 			}       
-		});             
-		    
-		maxNumText.setOnClickListener(this);*/
+		});  
+		
+		radioGenderGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+	    {
+	        public void onCheckedChanged(RadioGroup group, int checkedId) {
+	        	
+	        	radioGenderBtn = (RadioButton) findViewById(checkedId); 
+	        }
+	    });
+		
+		radioPitchGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+	    {
+	        public void onCheckedChanged(RadioGroup group, int checkedId) {
+	        	
+	        	radioPitchBtn = (RadioButton) findViewById(checkedId); 
+	        }
+	    });
+		
+		radioGameTypeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+	    {
+	        public void onCheckedChanged(RadioGroup group, int checkedId) {
+	        	
+	        	radioGameBtn = (RadioButton) findViewById(checkedId); 
+	        }
+	    });	
 	}
 	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		/*switch( v.getId())
+		switch( v.getId())
 		{
-			case R.id.locationText : addressText.setText("");
-										break;
+			//case R.id.locationText : location.setText("");
+										//break;
 										
 			case R.id.dateText	 	: dateText.setText("");
 										break;
@@ -91,7 +127,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			
 			case R.id.maxAge	 	: maxAgeText.setText("");
 										break;
-		}*/
+		}
 	}
 	
 	@Override
