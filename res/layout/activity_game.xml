@@ -69,14 +69,9 @@
         android1:layout_alignLeft="@+id/skillLevelBar"
         android1:layout_alignParentRight="true"
         android1:layout_alignTop="@+id/location"
-        
-        android1:ems="10"
         android:hint="@string/locationHint"
-        android1:textAppearance="?android:attr/textAppearanceLarge"
-        android1:inputType="textPostalAddress" >
-
-        <requestFocus />
-    </EditText>
+        android1:ems="10"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android1:id="@+id/dateText"

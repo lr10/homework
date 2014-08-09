@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener {
 
-	//private EditText location;
+	private double latitude;
+	private double longitude;
+	//private EditText latLong;
 	private EditText dateText;
 	private EditText timeText;
 	private EditText minAgeText;
@@ -31,29 +33,48 @@ public class GameActivity extends Activity implements OnClickListener {
 	private RadioButton radioGameBtn;
 	private SeekBar skillLevelBar;
 	
+	public DBAdapter myDb;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		
 		setupVariables();
+		
+		openDB();
 	}
 	
 	private void setupVariables(){
 		
 		// Widgets
-		//location = (EditText) findViewById(R.id.locationText);
+		Bundle extras = getIntent().getExtras();
+		
+		if (extras != null) {
+		    latitude = extras.getDouble("EXTRA_LATITUDE");
+		    longitude = extras.getDouble("EXTRA_LONGITUDE");
+		}
+		
+		//latLong = (EditText) findViewById(R.id.locationText);
 		dateText = (EditText) findViewById(R.id.dateText);
 		timeText = (EditText) findViewById(R.id.timeText);
 		minAgeText = (EditText) findViewById(R.id.minAge);
 		maxAgeText = (EditText) findViewById(R.id.maxAge);
 		skillLevelBar = (SeekBar) findViewById(R.id.skillLevelBar);
 		radioGenderGroup = (RadioGroup) findViewById(R.id.radioGender); 
+		radioGenderBtn = (RadioButton) findViewById(R.id.maleRadio); 
 		radioPitchGroup = (RadioGroup) findViewById(R.id.radioPitch); 
+		radioPitchBtn = (RadioButton) findViewById(R.id.grassRadio); 
 		radioGameTypeGroup = (RadioGroup) findViewById(R.id.radioGameType); 
+		radioGameBtn = (RadioButton) findViewById(R.id.outdoorRadio); 
+		
+		
+		//String latLng = String.valueOf(latitude) + ", " + String.valueOf(longitude);
+		
+		//latLong.setText(""+latLng);
 		
 		// Listeners
-		//location.setOnClickListener(this);
+		//latLong.setOnClickListener(this);
 		dateText.setOnClickListener(this);
 		timeText.setOnClickListener(this);
 		minAgeText.setOnClickListener(this);
@@ -64,10 +85,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		    @Override       
 		    public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {     
 		        // TODO Auto-generated method stub      
-
-		        //t1.setTextSize(progress);
-		        Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
-
+		    	
+		    	skillLevelBar.setProgress(progress);
 		    }
 
 			@Override
@@ -108,18 +127,36 @@ public class GameActivity extends Activity implements OnClickListener {
 	    });	
 	}
 	
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		closeDB();
+	}
+
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	
+	private void closeDB() {
+		myDb.close();
+	}
+	
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch( v.getId())
 		{
-			//case R.id.locationText : location.setText("");
+			//case R.id.locationText	: latLong.setText(latitude + ", " + longitude);
 										//break;
 										
 			case R.id.dateText	 	: dateText.setText("");
 										break;
 										
-			case R.id.timeText	 	: timeText.setPressed(true);
+			case R.id.timeText	 	: timeText.setText("");
 										break;
 										
 			case R.id.minAge	 	: minAgeText.setText("");
@@ -156,16 +193,19 @@ public class GameActivity extends Activity implements OnClickListener {
 	
 	public void saveGameClicked() {
 	
-		// save info
 		//
+		// save info to database
 		//
-		//
-		/*addressText.getText().toString();
-		dateText.getText().toString();
-		timeText.getText().toString();
-		minAgeText.getText().toString();
-		maxAgeText.getText().toString();
-		maxNumText.getText().toString();*/
+		String date = dateText.getText().toString();
+		String time = timeText.getText().toString();
+		String min = minAgeText.getText().toString();
+		String max = maxAgeText.getText().toString();
+		int skillLevel = skillLevelBar.getProgress();
+		String genderBtn = radioGenderBtn.getText().toString();
+		String pitchBtn = radioPitchBtn.getText().toString();
+		String gameBtn = radioGameBtn.getText().toString();
+		
+		long newId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn);
 		
 		// touch notification
 		Toast toast = Toast.makeText(getApplicationContext(), "Game created!", Toast.LENGTH_SHORT);

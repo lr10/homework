@@ -1,13 +1,8 @@
 package edu.oit.cst407.project;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -29,56 +24,90 @@ public class MainActivity extends Activity implements LocationListener {
 
 	public GoogleMap googleMap;
 	private final LatLng LOCATION_OIT = new LatLng(45.321722, -122.766344);
-	static final int MAP_REQUEST = 1;
-	
+	private MarkerOptions markerOptions = new MarkerOptions();
+	private LatLng latLng;
 	public DBAdapter myDb;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Log.d("MainActivity", "onCreate()");
 		
 		setUpMapIfNeeded();
 		
-		Toast toast = Toast.makeText(getApplicationContext(), "Press and hold a location on the map to create a new game.", Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-		toast.show();
+		displayToast();
 		
 		openDB();
+		
+		// IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
+        // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
+		displayMarkers();
+	}
+	
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.d("MainActivity", "onStart()");
 	}
 	
 	@Override 
 	protected void onResume() {
 		super.onResume();
+		Log.d("MainActivity", "onResume()");
+		
 		setUpMapIfNeeded();
+		
+		openDB();
+		
+		// IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
+        // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
+		displayMarkers();
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Log.d("MainActivity", "onPause()");
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		Log.d("MainActivity", "onStop()");
+	}
+	
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		Log.d("MainActivity", "onRestart()");
 	}
 	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		Log.d("MainActivity", "onDestroy()");
 		closeDB();
-	}
 
-	private void openDB() {
-		myDb = new DBAdapter(this);
-		myDb.open();
+		//this.deleteDatabase("MyDb");
 	}
-	
-	private void closeDB() {
-		myDb.close();
-	}
-	
 	
 	private void setUpMapIfNeeded() {
 		
         // Do a null check to confirm that we have not already instantiated the map.
         if (googleMap == null) {
+        	
             // Try to obtain the map from the SupportMapFragment.
         	googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
             googleMap.setMyLocationEnabled(true);
            
-            
             // Check if we were successful in obtaining the map.
             if (googleMap != null) {
             
@@ -87,79 +116,67 @@ public class MainActivity extends Activity implements LocationListener {
             	
         		// Animating to OIT
         		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LOCATION_OIT, 15));
-        		//googleMap.addMarker(new MarkerOptions().position(LOCATION_OIT).title("Oregon Institute of Technology"));
         		
         		googleMap.setOnMapLongClickListener(new OnMapLongClickListener() {
         			
         	        @Override
         	        public void onMapLongClick(LatLng latLng) {
 
-        	            // Creating a marker
-        	            MarkerOptions markerOptions = new MarkerOptions();
-
         	            // Setting the position for the marker
         	            markerOptions.position(latLng);
-
-        	            /*
-        	            // Setting the title for the marker.
-        	            // This will be displayed on taping the marker
-        	            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-        	            */
-        	            
-        	            // Get address based on latitude and longitude
-        	            String loc = getAddress(latLng.latitude, latLng.longitude);
-        	            
-        	            // Setting the title for the marker.
-        	            // This will be displayed on taping the marker
-        	            markerOptions.title(loc);
-        	            
-        	            // Clears the previously touched position
-        	            googleMap.clear();
 
         	            // Animating to the touched position
         	            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
         	            // Open GameActivity for user to create game
-        	            newgameClicked();
-        	            
-        	            // IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
-        	            // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
-        	            //
-        	            // Placing a marker on the touched position
-        	            googleMap.addMarker(markerOptions);
-        	            
-        	            
+        	            newgameClicked(latLng.latitude, latLng.longitude);
         	        }
         	    });
                 
             }
         }
     }
-	
-	private String getAddress(double latitude, double longitude) {
-        StringBuilder result = new StringBuilder();
-        try {
-	            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-	            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-	            
-	            if (addresses.size() > 0) {
-	                Address address = addresses.get(0);
-	                
-	                String locality=address.getLocality();
-		            String city=address.getCountryName();
-		            String region_code=address.getCountryCode();
-		            String zipcode=address.getPostalCode();
-		            
-	                result.append(locality+" ");
-		            result.append(city+" "+ region_code+" ");
-		            result.append(zipcode);
-            }
-        } catch (IOException e) {
-            Log.e("tag", e.getMessage());
-        }
 
-        return result.toString();
-    }
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	private void closeDB() {
+		myDb.close();
+	}
+	
+	// Display all markers onto map
+	private void displayMarkers() {
+			
+		Cursor cursor = myDb.getAllRows();
+		
+		// Reset cursor to start, checking to see if there's data:
+		if (cursor.moveToFirst()) {
+			do {
+				// Process the data:
+				double lat = cursor.getDouble(DBAdapter.COL_LATITUDE);
+				double lng = cursor.getDouble(DBAdapter.COL_LONGITUDE);
+				String date = cursor.getString(DBAdapter.COL_DATE);
+				String time = cursor.getString(DBAdapter.COL_TIME);
+				
+				latLng = new LatLng(lat, lng);
+				
+				addMarkers(latLng, date, time);
+
+			} while(cursor.moveToNext());		
+		}
+		
+		// Close the cursor to avoid a resource leak.
+		cursor.close();
+	}
+	
+	private void addMarkers(LatLng latLng, String date, String time){
+		
+		markerOptions.position(latLng);
+        googleMap.addMarker(markerOptions);
+        markerOptions.title("Date: " + date).snippet("Time: " + time);
+	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
@@ -172,11 +189,7 @@ public class MainActivity extends Activity implements LocationListener {
 	public boolean onOptionsItemSelected( MenuItem item ) {
 				
 		switch(item.getItemId())
-		{
-			/*case R.id.action_newgame :
-				newgameClicked();
-				return true;*/
-			
+		{	
 			case R.id.action_settings :
 				settingsClicked(); 
 				return true;
@@ -185,9 +198,18 @@ public class MainActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void newgameClicked() {
+	private void displayToast() {
+		// TODO Auto-generated method stub
+		Toast toast = Toast.makeText(getApplicationContext(), "Press and hold a location on the map to create a new game.", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		toast.show();
+	}
+	
+	public void newgameClicked(double latitude, double longitude) {
 	    // do something
-		Intent gameIntent = new Intent(this, GameActivity.class);
+		Intent gameIntent = new Intent(getApplicationContext(), GameActivity.class);
+		gameIntent.putExtra("EXTRA_LATITUDE",latitude);
+		gameIntent.putExtra("EXTRA_LONGITUDE", longitude);
 		startActivity(gameIntent);
 	} 
 	
