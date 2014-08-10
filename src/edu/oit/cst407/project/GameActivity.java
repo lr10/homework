@@ -1,5 +1,7 @@
 package edu.oit.cst407.project;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener {
 
+	public String deviceLang = Locale.getDefault().getDisplayLanguage();
 	private double latitude;
 	private double longitude;
 	//private EditText latLong;
@@ -207,8 +210,17 @@ public class GameActivity extends Activity implements OnClickListener {
 		
 		long newId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn);
 		
+		String toastLang;
+		
+		if( deviceLang.equals("espa–ol")){
+			toastLang = getString(R.string.game_created_touch_es);
+		}
+		else{
+			toastLang = getString(R.string.game_created_touch_en);
+		}
+		
 		// touch notification
-		Toast toast = Toast.makeText(getApplicationContext(), "Game created!", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(), toastLang, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
 		finish();

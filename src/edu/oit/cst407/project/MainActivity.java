@@ -1,5 +1,7 @@
 package edu.oit.cst407.project;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends Activity implements LocationListener {
 
+	public String deviceLang = Locale.getDefault().getDisplayLanguage();
 	public GoogleMap googleMap;
 	private final LatLng LOCATION_OIT = new LatLng(45.321722, -122.766344);
 	private MarkerOptions markerOptions = new MarkerOptions();
@@ -174,7 +177,13 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		markerOptions.position(latLng);
         googleMap.addMarker(markerOptions);
-        markerOptions.title("Date: " + date).snippet("Time: " + time);
+		
+		if( deviceLang.equals("espa–ol")){
+			markerOptions.title("Fecha: " + date).snippet("Hora: " + time);
+		}
+		else{
+			markerOptions.title("Date: " + date).snippet("Time: " + time);
+		}
 	}
 	
 	
@@ -199,8 +208,18 @@ public class MainActivity extends Activity implements LocationListener {
 	}
 	
 	private void displayToast() {
+		
+		String toastLang;
+		
+		if( deviceLang.equals("espa–ol")){
+			toastLang = getString(R.string.create_game_touch_es);
+		}
+		else{
+			toastLang = getString(R.string.create_game_touch_en);
+		}
+		
 		// TODO Auto-generated method stub
-		Toast toast = Toast.makeText(getApplicationContext(), "Press and hold a location on the map to create a new game.", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(getApplicationContext(), toastLang, Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
 	}

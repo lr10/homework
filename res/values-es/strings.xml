@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Activities --> 
+    <string name="app_name">Playmaker</string>
+    <string name="title_activity_game">Crear Nuevo Juego</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="title_activity_info">Detalles del Juego</string>
+    
+  	<!-- Create Game Activity --> 
+  	<string name="create_game_touch_es">Mantenga pulsado un lugar en el mapa para crear un nuevo juego.</string>
+  	<string name="game_created_touch_es">Juego creado!</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_newgame">Nuevo Juego</string>
+    <string name="location">Ubicación:</string>
+    <string name="locationHint">Latitud, Longitud</string>
+    <string name="date">Fecha:</string>
+    <string name="dateHint">08/12/14</string>
+    <string name="gender">Genero:</string>
+    <string name="time">Hora:</string>
+    <string name="timeHint">7:00pm</string>
+    <string name="age">Rango de edad:</string>
+    <string name="minHint">Min</string>
+    <string name="maxHint">Max</string>
+    <string name="game_type">Tipo de juego:</string>
+    <string name="pitch">Campo:</string>
+    <string name="skill_level">Nivel de habilidad:</string>
+    <string name="max_number">Numero máximo de jugadores:</string>
+    <string name="indoor">Sala</string>
+    <string name="outdoor">Fuera</string>
+    <string name="turf">Turf</string>
+    <string name="grass">Pasto</string>
+    <string name="futsal">Futsal</string>
+    <string name="male">Macho</string>
+    <string name="female">Hembra</string>
+    <string name="coed">Mixto</string>
+    <string name="to">a</string>
+    
+	<!-- Settings Activity --> 
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="default_address">Ubicación principal:</string>
+    <string name="push">Notificaciones push:</string>
+    <string name="reminders">Recordatorios de juego:</string>
+    <string name="radius">Encontrar juegos dentro:</string>
+    <string name="miles">millas</string>
+    <string name="milesHint">0</string>
+    <string name="map">Mapa:</string>
+    <string name="normal">Normal</string>
+    <string name="hybrid">Hibrido</string>
+    <string name="satellite">Satelite</string>
+    <string name="empty"></string>
+    
+</resources>

@@ -8,6 +8,8 @@
     <string name="title_activity_info">Game Details</string>
     
   	<!-- Create Game Activity --> 
+  	<string name="create_game_touch_en">Press and hold a location on the map to create a new game.</string>
+  	<string name="game_created_touch_en">Game created!</string>
     <string name="action_settings">Settings</string>
     <string name="action_newgame">New Game</string>
     <string name="location">Location:</string>
