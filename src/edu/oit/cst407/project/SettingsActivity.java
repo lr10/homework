@@ -18,6 +18,15 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Switch;
 import android.widget.Toast;
 
+/**
+ * This class implements the user's settings portion of the application.
+ * It allows the user to specify how they would like the application
+ * to personally interact with them.
+ * 
+ * @author Leander Rodriguez
+ * @version 1.0
+ *
+ */
 public class SettingsActivity extends Activity implements OnClickListener {
 	
 	private EditText addressText;
@@ -27,7 +36,12 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	private RadioGroup radioMapGroup;
 	private RadioButton selectedRBtn;
 	
-	
+	/**
+	 * This method calls a method to set up all class variables
+	 * and also calls a method to load the stored SharedPreferences.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +52,11 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		loadPrefs();
 	}
 	
+	/**
+	 * This method initializes all member variables with all the widgets
+	 * in the SettingsActivity layout respectfully.  Click listeners for all
+	 * these widgets are also introduced. 
+	 */
 	private void setupVariables(){
 		
 		// Widgets
@@ -57,10 +76,13 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	        	selectedRBtn = (RadioButton) findViewById(checkedId); 
 	        }
 	    });
-		
-		
 	}
 	
+	/**
+	 * This method introduces the storage of the user's by way of
+	 * SharedPreferences.  The user's settings are stored into storage
+	 * variables 'forever' until the user decides to change them.
+	 */
 	private void loadPrefs(){
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -110,6 +132,12 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * This method instantiates the SharedPreferences storage functionality.
+	 * 
+	 * @param key the identification that will be used to reference a stored value
+	 * @param value the string value of what is being stored
+	 */
 	private void savePrefs(String key, String value){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
@@ -117,6 +145,12 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		editor.commit();
 	}
 	
+	/**
+	 * This method instantiates the SharedPreferences storage functionality.
+	 * 
+	 * @param key the identification that will be used to reference a stored value
+	 * @param value the boolean value of what is being stored
+	 */
 	private void savePrefs(String key, boolean value){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = prefs.edit();
@@ -124,6 +158,13 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		editor.commit();
 	}
 	
+	/**
+	 * This methods listens to when an EditText widget is 
+	 * clicked and clears any current text to allow the user
+	 * to input new text.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onClick(View v){
 	
@@ -137,6 +178,11 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * This method adds an action bar to the top of the application.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -144,6 +190,12 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
+	/**
+	 * This method listens to when the action bar Save or
+	 * Cancel icon is selected.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onOptionsItemSelected( MenuItem item ) {
 				
@@ -161,6 +213,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * This method saves the user's settings into the SharedPreferences
+	 * storage and notifies the user that the settings have been saved.
+	 */
 	public void saveSettingsClicked() {
 	    
 		// save info 
@@ -194,9 +250,11 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		finish();
 	} 
 	
+	/**
+	 * This method closes the current SettingsAcitivty and returns
+	 * to the MainActivity.
+	 */
 	public void cancelClicked() {
 		finish();
 	} 
-	
-	
 }

@@ -22,6 +22,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * This class implements the user's first interaction with the Playmaker app.
+ * @author Leander Rodriguez
+ * @version 1.0
+ *
+ */
 public class MainActivity extends Activity implements LocationListener {
 
 	public String deviceLang = Locale.getDefault().getDisplayLanguage();
@@ -31,7 +37,12 @@ public class MainActivity extends Activity implements LocationListener {
 	private LatLng latLng;
 	public DBAdapter myDb;
 	
-	
+	/**
+	 * This method creates and populates the map that the user will 
+	 * interact with.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +60,9 @@ public class MainActivity extends Activity implements LocationListener {
 		displayMarkers();
 	}
 	
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -57,6 +70,13 @@ public class MainActivity extends Activity implements LocationListener {
 		Log.d("MainActivity", "onStart()");
 	}
 	
+	/**
+	 * This method recreates the map and populates it with
+	 * map markers. The map markers carry information pulled
+	 * from the SQLite database. 
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override 
 	protected void onResume() {
 		super.onResume();
@@ -71,6 +91,9 @@ public class MainActivity extends Activity implements LocationListener {
 		displayMarkers();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
@@ -78,6 +101,9 @@ public class MainActivity extends Activity implements LocationListener {
 		Log.d("MainActivity", "onPause()");
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -85,6 +111,9 @@ public class MainActivity extends Activity implements LocationListener {
 		Log.d("MainActivity", "onStop()");
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
@@ -92,6 +121,11 @@ public class MainActivity extends Activity implements LocationListener {
 		Log.d("MainActivity", "onRestart()");
 	}
 	
+	/**
+	 * This method calls a function that closes the SQLite Database.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -102,6 +136,12 @@ public class MainActivity extends Activity implements LocationListener {
 		//this.deleteDatabase("MyDb");
 	}
 	
+	/**
+	 * This method sets up the app's main google map and animates
+	 * to the user's current location. It also introduces
+	 * a map click listener, that allows the user to create a new
+	 * game by pressing and holding a location on the map.
+	 */
 	private void setUpMapIfNeeded() {
 		
         // Do a null check to confirm that we have not already instantiated the map.
@@ -139,16 +179,25 @@ public class MainActivity extends Activity implements LocationListener {
             }
         }
     }
-
+	
+	/**
+	 * This method opens the SQLite Database
+	 */
 	private void openDB() {
 		myDb = new DBAdapter(this);
 		myDb.open();
 	}
+	
+	/**
+	 * This method closes the SQLite Database
+	 */
 	private void closeDB() {
 		myDb.close();
 	}
 	
-	// Display all markers onto map
+	/**
+	 * This method displays all game markers onto map
+	 */
 	private void displayMarkers() {
 			
 		Cursor cursor = myDb.getAllRows();
@@ -173,6 +222,12 @@ public class MainActivity extends Activity implements LocationListener {
 		cursor.close();
 	}
 	
+	/**
+	 * This method give each marker a position, title, and snippet of information
+	 * @param latLng the latitude and longitude of the game the current marker is referring to
+	 * @param date the date of the game the current marker is referring to
+	 * @param time the time of the game the current marker is referring to
+	 */
 	private void addMarkers(LatLng latLng, String date, String time){
 		
 		markerOptions.position(latLng);
@@ -186,7 +241,11 @@ public class MainActivity extends Activity implements LocationListener {
 		}
 	}
 	
-	
+	/**
+	 * This method adds an action bar to the top of the application.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -194,6 +253,12 @@ public class MainActivity extends Activity implements LocationListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
+	/**
+	 * This method listens to when the action bar's Settings icon
+	 * is selected.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onOptionsItemSelected( MenuItem item ) {
 				
@@ -207,6 +272,11 @@ public class MainActivity extends Activity implements LocationListener {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * This method displays the introductory toast/message when the user
+	 * first enters the app.  The toast's language is based on the device's
+	 * language setting.
+	 */
 	private void displayToast() {
 		
 		String toastLang;
@@ -224,6 +294,12 @@ public class MainActivity extends Activity implements LocationListener {
 		toast.show();
 	}
 	
+	/**
+	 * This method opens a new GameActivity. The latitude and longitude are passed along
+	 * to the next activity, to be placed into an SQLite Database.
+	 * @param latitude the latitude of the location where the user wants to create a game
+	 * @param longitude the longitude of the location where the user wants to create a game
+	 */
 	public void newgameClicked(double latitude, double longitude) {
 	    // do something
 		Intent gameIntent = new Intent(getApplicationContext(), GameActivity.class);
@@ -232,29 +308,44 @@ public class MainActivity extends Activity implements LocationListener {
 		startActivity(gameIntent);
 	} 
 	
+	/**
+	 * This method opens a new SettingsActivity.
+	 */
 	public void settingsClicked() {
 	    // do something
 		Intent settingsIntent = new Intent(this, SettingsActivity.class);
 		startActivity(settingsIntent);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub

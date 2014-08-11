@@ -18,6 +18,15 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
+/**
+ * This class implements the game creation portion of the application.
+ * It allows the user to make selections of what time of game they
+ * would like to create.
+ * 
+ * @author Leander Rodriguez
+ * @version 1.0
+ *
+ */
 public class GameActivity extends Activity implements OnClickListener {
 
 	public String deviceLang = Locale.getDefault().getDisplayLanguage();
@@ -38,6 +47,12 @@ public class GameActivity extends Activity implements OnClickListener {
 	
 	public DBAdapter myDb;
 	
+	/**
+	 * This method calls a method to set up all class variables
+	 * and also calls a method to open the SQLite Database.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +63,12 @@ public class GameActivity extends Activity implements OnClickListener {
 		openDB();
 	}
 	
+	/**
+	 * This method initializes all member variables with all the widgets
+	 * in the GameActivity layout respectfully.  Click listeners for all
+	 * these widgets are also introduced. Latitude and longitude passed-in
+	 * from MainActivity are also stored.
+	 */
 	private void setupVariables(){
 		
 		// Widgets
@@ -130,7 +151,11 @@ public class GameActivity extends Activity implements OnClickListener {
 	    });	
 	}
 	
-	
+	/**
+	 * This method calls a function that closes the SQLite Database.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -138,16 +163,28 @@ public class GameActivity extends Activity implements OnClickListener {
 		closeDB();
 	}
 
+	/**
+	 * This method opens the SQLite Database
+	 */
 	private void openDB() {
 		myDb = new DBAdapter(this);
 		myDb.open();
 	}
 	
+	/**
+	 * This method closes the SQLite Database
+	 */
 	private void closeDB() {
 		myDb.close();
 	}
 	
-	
+	/**
+	 * This methods listens to when an EditText widget is 
+	 * clicked and clears any current text to allow the user
+	 * to input new text.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -170,6 +207,11 @@ public class GameActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/**
+	 * This method adds an action bar to the top of the application.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
@@ -177,6 +219,12 @@ public class GameActivity extends Activity implements OnClickListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
+	/**
+	 * This method listens to when the action bar Save or
+	 * Cancel icon is selected.
+	 * 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean onOptionsItemSelected( MenuItem item ) {
 				
@@ -194,6 +242,10 @@ public class GameActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * This method saves the newly created game by adding
+	 * it to the SQLite Database.
+	 */
 	public void saveGameClicked() {
 	
 		//
@@ -226,6 +278,10 @@ public class GameActivity extends Activity implements OnClickListener {
 		finish();
 	} 
 	
+	/**
+	 * This method closes the current GameAcitivty and returns
+	 * to the MainActivity.
+	 */
 	public void cancelClicked() {
 		finish();
 	}

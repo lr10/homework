@@ -3,6 +3,12 @@ package edu.oit.cst407.project;
 import android.app.Activity;
 import android.os.Bundle;
 
+/**
+ * This class is currently not being used.
+ * @author Leander Rodriguez
+ * @version 1.0
+ *
+ */
 public class InfoActivity extends Activity {
 
 	@Override

@@ -10,7 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
+/**
+ * This class implements the SQLite Database.
+ * @author Leander Rodriguez
+ * @version 1.0
+ *
+ */
 // TO USE:
 // Change the package (at top) to match your project.
 // Search for "TODO", and make the appropriate changes.
