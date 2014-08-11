@@ -65,6 +65,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		reminderSwitch = (Switch) findViewById(R.id.remindersSwitch);
 		radiusText = (EditText) findViewById(R.id.milesRadius);
 		radioMapGroup = (RadioGroup) findViewById(R.id.radioGameType); 
+		selectedRBtn = (RadioButton) findViewById(R.id.normalRadio);
 		
 		// Listeners
 		addressText.setOnClickListener(this);
