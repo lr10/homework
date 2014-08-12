@@ -370,11 +370,11 @@ public class MainActivity extends Activity implements LocationListener {
 	    		{
 	        		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 	    		}
-	    		else if( mapType.equals("Hybrid") )
+	    		else if( mapType.equals("Hybrid") || mapType.equals("Hibrido") )
 	    		{
 	    			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 	    		}
-	    		else if( mapType.equals( "Satellite") )
+	    		else if( mapType.equals( "Satellite") || mapType.equals("Satelite") )
 	    		{
 	    			googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 	    		}

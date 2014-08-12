@@ -52,7 +52,8 @@
     <string name="empty"></string>
     
     <!-- Info Activity --> 
-    <string name="action_join">Join</string>
+    <string name="action_join">Join game</string>
+    <string name="action_leave">Leave game</string>
     <string name="num_players">Players:</string>
 
 </resources>

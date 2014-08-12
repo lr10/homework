@@ -3,16 +3,23 @@
     
      <item
         android:id="@+id/action_join"
-        android:icon="@drawable/ic_action_add_person"
+        android:icon="@drawable/ic_action_good"
         android:title="@string/action_join"
         android:orderInCategory="1"
+        android:showAsAction="always" />
+     
+     <item
+        android:id="@+id/action_leave"
+        android:icon="@drawable/ic_action_bad"
+        android:title="@string/action_leave"
+        android:orderInCategory="2"
         android:showAsAction="always" />
     
     <item
         android:id="@+id/action_cancel"
         android:icon="@drawable/ic_action_cancel"
         android:title="@string/action_cancel"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:showAsAction="always" />
 
 </menu>

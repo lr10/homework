@@ -3,6 +3,8 @@ package edu.oit.cst407.project;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -195,6 +197,10 @@ public class InfoActivity extends Activity {
 			case R.id.action_join :
 				joinGameClicked();
 				return true;
+				
+			case R.id.action_leave :
+				leaveGameClicked();
+				return true;
 			
 			case R.id.action_cancel :
 				cancelClicked(); 
@@ -209,12 +215,101 @@ public class InfoActivity extends Activity {
 	 */
 	public void joinGameClicked() {
 
-		// touch notification
-		Toast toast = Toast.makeText(getApplicationContext(), "You have joined this game.", Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-		toast.show();
-		finish();
+		if( deviceLang.equals("espa–ol")){
+			new AlertDialog.Builder(this)
+		    .setTitle("Unirse A Este Juego")
+		    .setMessage("Seguro que quieres unirte a este juego?")
+		    .setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     })
+		    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	// touch notification
+		    		Toast toast = Toast.makeText(getApplicationContext(), "Te has unido a este juego.", Toast.LENGTH_SHORT);
+		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		    		toast.show();
+		    		finish();
+		        }
+		     })
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
+		else{
+			new AlertDialog.Builder(this)
+		    .setTitle("Join Game")
+		    .setMessage("Are you sure you want to join this game?")
+		    .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     })
+		    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	// touch notification
+		    		Toast toast = Toast.makeText(getApplicationContext(), "You have joined this game.", Toast.LENGTH_SHORT);
+		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		    		toast.show();
+		    		finish();
+		        }
+		     })
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
 	} 
+	
+	/**
+	 * This method closes the current InfoAcitivty and returns
+	 * to the MainActivity.
+	 */
+	public void leaveGameClicked() {
+		
+		if( deviceLang.equals("espa–ol")){
+			
+			new AlertDialog.Builder(this)
+		    .setTitle("Dejar Este Juego")
+		    .setMessage("Seguro que quieres dejar este juego?")
+		    .setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     })
+		    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	// touch notification
+		    		Toast toast = Toast.makeText(getApplicationContext(), "Has dejado este juego.", Toast.LENGTH_SHORT);
+		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		    		toast.show();
+		    		finish();
+		        }
+		     })
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
+		else{
+			
+			new AlertDialog.Builder(this)
+		    .setTitle("Leave Game")
+		    .setMessage("Are you sure you want to leave this game?")
+		    .setPositiveButton(android.R.string.no, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            // do nothing
+		        }
+		     })
+		    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	// touch notification
+		    		Toast toast = Toast.makeText(getApplicationContext(), "You have left this game.", Toast.LENGTH_SHORT);
+		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		    		toast.show();
+		    		finish();
+		        }
+		     })
+		    .setIcon(android.R.drawable.ic_dialog_alert)
+		     .show();
+		}
+	}
 	
 	/**
 	 * This method closes the current InfoAcitivty and returns

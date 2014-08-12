@@ -1,5 +1,7 @@
 package edu.oit.cst407.project;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +32,7 @@ import android.widget.Toast;
  */
 public class SettingsActivity extends Activity implements OnClickListener {
 	
+	public String deviceLang = Locale.getDefault().getDisplayLanguage();
 	private EditText addressText;
 	private Switch pushSwitch;
 	private Switch reminderSwitch;
@@ -233,20 +236,28 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		{
 			savePrefs("SHAREDPREF_ITEM_MAP_TYPE", "Normal");
 		}
-		else if( radioBtnText.equals("Hybrid") )
+		else if( radioBtnText.equals("Hybrid") || radioBtnText.equals("Hibrido") )
 		{
 			savePrefs("SHAREDPREF_ITEM_MAP_TYPE", "Hybrid");
 		}
-		else if( radioBtnText.equals( "Satellite") )
+		else if( radioBtnText.equals( "Satellite") || radioBtnText.equals("Satelite"))
 		{
 			savePrefs("SHAREDPREF_ITEM_MAP_TYPE", "Satellite");
 		}
 		
 		
 		// zoom camera in based on radius
+		String toastLang;
+		
+		if( deviceLang.equals("espa–ol")){
+			toastLang = "Preferencias guardadas";
+		}
+		else{
+			toastLang = "Preferences saved.";
+		}
 		
 		// touch notification
-		Toast toast = Toast.makeText(getApplicationContext(), "Preferences saved.", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getApplicationContext(), toastLang, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
 		
