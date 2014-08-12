@@ -3,7 +3,6 @@ package edu.oit.cst407.project;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -11,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -34,6 +34,10 @@ public class InfoActivity extends Activity {
 	private RadioButton radioGenderBtn; 
 	private RadioButton radioPitchBtn; 
 	private RadioButton radioGameBtn;
+	private RadioGroup radioGenderGroup; 
+	private RadioGroup radioPitchGroup; 
+	private RadioGroup radioGameTypeGroup;
+	
 	
 	/**
 	 * This method calls a method to set up all class variables
@@ -71,7 +75,8 @@ public class InfoActivity extends Activity {
 	/**
 	 * This method initializes all member variables with all the widgets
 	 * in the InfoActivity layout respectfully. Widget values are then
-	 * set to show the marker information the user had chosen.
+	 * set to show the marker information the user had chosen. Widgets
+	 * are also disabled as this activity is for viewing only.
 	 */
 	private void setupVariables(){
 		
@@ -85,6 +90,9 @@ public class InfoActivity extends Activity {
 		radioGenderBtn = (RadioButton) findViewById(R.id.maleRadio); 
 		radioPitchBtn = (RadioButton) findViewById(R.id.grassRadio);
 		radioGameBtn = (RadioButton) findViewById(R.id.outdoorRadio); 
+		radioGenderGroup = (RadioGroup) findViewById(R.id.radioGender);
+		radioPitchGroup = (RadioGroup) findViewById(R.id.radioPitch);
+		radioGameTypeGroup = (RadioGroup) findViewById(R.id.radioGameType);
 		
 		// Set marker info
 		Bundle extras = getIntent().getExtras();
@@ -138,6 +146,27 @@ public class InfoActivity extends Activity {
 		    
 		    radioGameBtn.setChecked(true);
 		}
+		
+		
+		// Disable all widgets, making activity read only
+		location.setEnabled(false);
+		dateText.setEnabled(false);
+		timeText.setEnabled(false);
+		minAgeText.setEnabled(false);
+		maxAgeText.setEnabled(false);
+		skillLevelBar.setEnabled(false);
+		
+		for(int i = 0; i < radioGenderGroup.getChildCount(); i++){
+		    ((RadioButton)radioGenderGroup.getChildAt(i)).setEnabled(false);
+		}
+		
+		for(int i = 0; i < radioPitchGroup.getChildCount(); i++){
+		    ((RadioButton)radioPitchGroup.getChildAt(i)).setEnabled(false);
+		}
+		
+		for(int i = 0; i < radioGameTypeGroup.getChildCount(); i++){
+		    ((RadioButton)radioGameTypeGroup.getChildAt(i)).setEnabled(false);
+		}
 	}
 	
 	/**
@@ -148,7 +177,7 @@ public class InfoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_game_action, menu);
+		inflater.inflate(R.menu.activity_info_action, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -163,7 +192,7 @@ public class InfoActivity extends Activity {
 				
 		switch(item.getItemId())
 		{
-			case R.id.action_save :
+			case R.id.action_join :
 				joinGameClicked();
 				return true;
 			

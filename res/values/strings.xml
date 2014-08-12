@@ -51,8 +51,8 @@
     <string name="satellite">Satellite</string>
     <string name="empty"></string>
     
-    <!-- Not Used Yet --> 
-    <string name="join">Join game:</string>
-    <string name="current">Currently:</string>
+    <!-- Info Activity --> 
+    <string name="action_join">Join</string>
+    <string name="num_players">Players:</string>
 
 </resources>

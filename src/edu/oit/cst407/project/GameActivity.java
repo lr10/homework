@@ -148,11 +148,6 @@ public class GameActivity extends Activity implements OnClickListener {
 	        }
 	    });	
 	}
-	
-	private String StringvalueOf(double latitude2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * This method calls a function that closes the SQLite Database.
