@@ -51,12 +51,12 @@ public class DBAdapter {
 	public static final int COL_LONGITUDE = 2;
 	public static final int COL_DATE = 3;
 	public static final int COL_TIME = 4;
-	public static final int COL_MIN_AGE = 3;
-	public static final int COL_MAX_AGE = 4;
-	public static final int COL_SKILL_LEVEL = 5;
-	public static final int COL_GENDER = 6;
-	public static final int COL_PITCH = 7;
-	public static final int COL_GAME_TYPE = 8;
+	public static final int COL_MIN_AGE = 5;
+	public static final int COL_MAX_AGE = 6;
+	public static final int COL_SKILL_LEVEL = 7;
+	public static final int COL_GENDER = 8;
+	public static final int COL_PITCH = 9;
+	public static final int COL_GAME_TYPE = 10;
 	
 	public static final String[] ALL_KEYS = new String[]{ KEY_ROWID, 
 														  KEY_LATITUDE, 

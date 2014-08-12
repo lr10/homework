@@ -3,6 +3,7 @@ package edu.oit.cst407.project;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -44,6 +45,9 @@ public class InfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_info);
+		
+		//Dialog overlayDialog = new Dialog(this, android.R.style.Theme_Panel);
+		//overlayDialog.show();
 		
 		setupVariables();
 	}
@@ -93,8 +97,8 @@ public class InfoActivity extends Activity {
 								+ String.valueOf(longitude).substring(0,10));
 		    dateText.setText(extras.getString("EXTRA_DATE"));
 		    timeText.setText(extras.getString("EXTRA_TIME"));
-		    minAgeText.setText(extras.getString("EXTRA_MIN_AGE"));
-		    maxAgeText.setText(extras.getString("EXTRA_MAX_AGE"));
+		    minAgeText.setText(extras.getString("EXTRA_AGE_MIN"));
+		    maxAgeText.setText(extras.getString("EXTRA_AGE_MAX"));
 		    skillLevelBar.setProgress(extras.getInt("EXTRA_SKILL_LEVEL"));
 		    
 		    String gender = extras.getString("EXTRA_GENDER");
@@ -111,15 +115,19 @@ public class InfoActivity extends Activity {
 		    	radioGenderBtn = (RadioButton) findViewById(R.id.coedRadio);
 		    }
 		    
-		    if( pitch.equals("Male") ){
+		    radioGenderBtn.setChecked(true);
+		    
+		    if( pitch.equals("Grass") ){
 		    	radioPitchBtn = (RadioButton) findViewById(R.id.grassRadio);
 		    }
-		    else if( pitch.equals("Female") ){
+		    else if( pitch.equals("Turf") ){
 		    	radioPitchBtn = (RadioButton) findViewById(R.id.turfRadio);
 		    }
-		    else if( pitch.equals("Coed") ){
+		    else if( pitch.equals("Futsal") ){
 		    	radioPitchBtn = (RadioButton) findViewById(R.id.futsalRadio);
 		    }
+		    
+		    radioPitchBtn.setChecked(true);
 		    
 		    if( gameType.equals("Male") ){
 		    	radioGameBtn = (RadioButton) findViewById(R.id.indoorRadio);
@@ -127,6 +135,8 @@ public class InfoActivity extends Activity {
 		    else if( gameType.equals("Female") ){
 		    	radioGameBtn = (RadioButton) findViewById(R.id.outdoorRadio);
 		    }
+		    
+		    radioGameBtn.setChecked(true);
 		}
 	}
 	
