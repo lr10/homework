@@ -196,6 +196,7 @@ public class MainActivity extends Activity implements LocationListener {
                                 		
                 						// Use row information to populate information activity and display it
                 						Intent infoIntent = new Intent(MainActivity.this, InfoActivity.class);
+                						infoIntent.putExtra("EXTRA_ROW_ID", current.getLong(DBAdapter.COL_ROWID));
                 						infoIntent.putExtra("EXTRA_LATITUDE", current.getDouble(DBAdapter.COL_LATITUDE));
                 						infoIntent.putExtra("EXTRA_LONGITUDE", current.getDouble(DBAdapter.COL_LONGITUDE));
                 						infoIntent.putExtra("EXTRA_DATE", current.getString(DBAdapter.COL_DATE));
@@ -206,6 +207,7 @@ public class MainActivity extends Activity implements LocationListener {
                 						infoIntent.putExtra("EXTRA_GENDER", current.getString(DBAdapter.COL_GENDER));
                 						infoIntent.putExtra("EXTRA_PITCH", current.getString(DBAdapter.COL_PITCH));
                 						infoIntent.putExtra("EXTRA_GAME_TYPE", current.getString(DBAdapter.COL_GAME_TYPE));
+                						infoIntent.putExtra("EXTRA_PLAYERS", current.getInt(DBAdapter.COL_PLAYERS));
                 						startActivity(infoIntent);
                 	                    current.close();
                 						break;
@@ -255,10 +257,11 @@ public class MainActivity extends Activity implements LocationListener {
 				double lng = cursor.getDouble(DBAdapter.COL_LONGITUDE);
 				String date = cursor.getString(DBAdapter.COL_DATE);
 				String time = cursor.getString(DBAdapter.COL_TIME);
+				int players = cursor.getInt(DBAdapter.COL_PLAYERS);
 				
 				latLng = new LatLng(lat, lng);
 				
-				addMarkers(latLng, date, time);
+				addMarkers(latLng, date, time, players);
 
 			} while(cursor.moveToNext());		
 		}
@@ -273,15 +276,19 @@ public class MainActivity extends Activity implements LocationListener {
 	 * @param date the date of the game the current marker is referring to
 	 * @param time the time of the game the current marker is referring to
 	 */
-	private void addMarkers(LatLng latLng, String date, String time){
+	private void addMarkers(LatLng latLng, String date, String time, int players){
 		
 		markerOptions.position(latLng);
 		
 		if( deviceLang.equals("espa–ol")){
-			markerOptions.title("Fecha: " + date).snippet("Hora: " + time);
+			markerOptions.title("Fecha: " + date)
+							.snippet("Hora: " + time)
+							.snippet("Jugadores: " + players);
 		}
 		else{
-			markerOptions.title("Date: " + date).snippet("Time: " + time);
+			markerOptions.title("Date: " + date)
+							.snippet("Time: " + time)
+							.snippet("Players: " + players);
 		}
 		
 		 googleMap.addMarker(markerOptions);

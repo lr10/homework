@@ -1,5 +1,8 @@
 package edu.oit.cst407.project;
 
+import static java.lang.System.err;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 public class InfoActivity extends Activity {
 
 	public String deviceLang = Locale.getDefault().getDisplayLanguage();
+	private long rowId;
 	private double latitude;
 	private double longitude;
 	private EditText location;
@@ -39,6 +43,9 @@ public class InfoActivity extends Activity {
 	private RadioGroup radioGenderGroup; 
 	private RadioGroup radioPitchGroup; 
 	private RadioGroup radioGameTypeGroup;
+	private int players;
+	public DBAdapter myDb;
+	private boolean update;
 	
 	
 	/**
@@ -67,6 +74,34 @@ public class InfoActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		setupVariables();
+		openDB();
+	}
+	
+	/**
+	 * This method calls a function that closes the SQLite Database.
+	 * 
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		closeDB();
+	}
+
+	/**
+	 * This method opens the SQLite Database
+	 */
+	private void openDB() {
+		myDb = new DBAdapter(this);
+		myDb.open();
+	}
+	
+	/**
+	 * This method closes the SQLite Database
+	 */
+	private void closeDB() {
+		myDb.close();
 	}
 
 
@@ -97,6 +132,7 @@ public class InfoActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		
 		if (extras != null) {
+			rowId = extras.getLong("EXTRA_ROW_ID");
 		    latitude = extras.getDouble("EXTRA_LATITUDE");
 		    longitude = extras.getDouble("EXTRA_LONGITUDE");
 		    location.setText(String.valueOf(latitude).substring(0,10) 
@@ -144,6 +180,8 @@ public class InfoActivity extends Activity {
 		    }
 		    
 		    radioGameBtn.setChecked(true);
+		    
+		    players = extras.getInt("EXTRA_PLAYERS");
 		}
 		
 		
@@ -213,7 +251,7 @@ public class InfoActivity extends Activity {
 	 * returns to the MainActivity.
 	 */
 	public void joinGameClicked() {
-
+		
 		if( deviceLang.equals("espa–ol")){
 			new AlertDialog.Builder(this)
 		    .setTitle("Unirse A Este Juego")
@@ -225,6 +263,16 @@ public class InfoActivity extends Activity {
 		     })
 		    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
+		        	
+		        	// Add player
+		        	players += 1;
+		        
+		    		update = myDb.updateRow(rowId, latitude, longitude, dateText.getText().toString(),
+		    								timeText.getText().toString(), minAgeText.getText().toString(),
+		    								maxAgeText.getText().toString(), skillLevelBar.getProgress(),
+		    								radioGenderBtn.getText().toString(), radioPitchBtn.getText().toString(),
+		    								radioGameBtn.getText().toString(), players);
+		        	
 		        	// touch notification
 		    		Toast toast = Toast.makeText(getApplicationContext(), "Te has unido a este juego.", Toast.LENGTH_SHORT);
 		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -246,6 +294,16 @@ public class InfoActivity extends Activity {
 		     })
 		    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
+		        	
+		        	// Add player
+		        	players += 1;
+		        
+		    		update = myDb.updateRow(rowId, latitude, longitude, dateText.getText().toString(),
+		    								timeText.getText().toString(), minAgeText.getText().toString(),
+		    								maxAgeText.getText().toString(), skillLevelBar.getProgress(),
+		    								radioGenderBtn.getText().toString(), radioPitchBtn.getText().toString(),
+		    								radioGameBtn.getText().toString(), players);
+
 		        	// touch notification
 		    		Toast toast = Toast.makeText(getApplicationContext(), "You have joined this game.", Toast.LENGTH_SHORT);
 		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -277,6 +335,16 @@ public class InfoActivity extends Activity {
 		     })
 		    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
+		        	
+		        	// Subtract player
+		        	players -= 1;
+		        
+		    		update = myDb.updateRow(rowId, latitude, longitude, dateText.getText().toString(),
+		    								timeText.getText().toString(), minAgeText.getText().toString(),
+		    								maxAgeText.getText().toString(), skillLevelBar.getProgress(),
+		    								radioGenderBtn.getText().toString(), radioPitchBtn.getText().toString(),
+		    								radioGameBtn.getText().toString(), players);
+		        	
 		        	// touch notification
 		    		Toast toast = Toast.makeText(getApplicationContext(), "Has dejado este juego.", Toast.LENGTH_SHORT);
 		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -299,6 +367,16 @@ public class InfoActivity extends Activity {
 		     })
 		    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 		        public void onClick(DialogInterface dialog, int which) { 
+		        	
+		        	// Subtract player
+		        	players -= 1;
+		        
+		    		update = myDb.updateRow(rowId, latitude, longitude, dateText.getText().toString(),
+		    								timeText.getText().toString(), minAgeText.getText().toString(),
+		    								maxAgeText.getText().toString(), skillLevelBar.getProgress(),
+		    								radioGenderBtn.getText().toString(), radioPitchBtn.getText().toString(),
+		    								radioGameBtn.getText().toString(), players);
+		        	
 		        	// touch notification
 		    		Toast toast = Toast.makeText(getApplicationContext(), "You have left this game.", Toast.LENGTH_SHORT);
 		    		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

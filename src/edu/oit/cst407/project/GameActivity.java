@@ -255,8 +255,9 @@ public class GameActivity extends Activity implements OnClickListener {
 		String genderBtn = radioGenderBtn.getText().toString();
 		String pitchBtn = radioPitchBtn.getText().toString();
 		String gameBtn = radioGameBtn.getText().toString();
+		int players = 1; // The current creator of the game
 		
-		long rowId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn);
+		long rowId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn, players);
 		
 		String toastLang;
 		

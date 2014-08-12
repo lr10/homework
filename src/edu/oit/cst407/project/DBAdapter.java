@@ -44,6 +44,7 @@ public class DBAdapter {
 	public static final String KEY_GENDER = "gender";
 	public static final String KEY_PITCH = "pitch";
 	public static final String KEY_GAME_TYPE = "gameType";
+	public static final String KEY_PLAYERS = "players";
 	
 	
 	// TODO: Setup your field numbers here (0 = KEY_ROWID, 1=...)
@@ -57,6 +58,7 @@ public class DBAdapter {
 	public static final int COL_GENDER = 8;
 	public static final int COL_PITCH = 9;
 	public static final int COL_GAME_TYPE = 10;
+	public static final int COL_PLAYERS = 11;
 	
 	public static final String[] ALL_KEYS = new String[]{ KEY_ROWID, 
 														  KEY_LATITUDE, 
@@ -68,13 +70,14 @@ public class DBAdapter {
 														  KEY_SKILL_LEVEL, 
 														  KEY_GENDER, 
 														  KEY_PITCH, 
-														  KEY_GAME_TYPE };
+														  KEY_GAME_TYPE,
+														  KEY_PLAYERS	};
 	
 	// DB info: it's name, and the table we are using (just one).
 	public static final String DATABASE_NAME = "MyDb";
 	public static final String DATABASE_TABLE = "mainTable";
 	// Track DB version if a new version of your app changes the format.
-	public static final int DATABASE_VERSION = 4;
+	public static final int DATABASE_VERSION = 5;
 	
 	private static final String DATABASE_CREATE_SQL = "create table " + DATABASE_TABLE 
 													+ " (" + KEY_ROWID + " integer primary key autoincrement, "
@@ -97,7 +100,8 @@ public class DBAdapter {
 		    + KEY_SKILL_LEVEL + " int not null, "
 		    + KEY_GENDER + " text not null, "
 		    + KEY_PITCH + " text not null, "
-		    + KEY_GAME_TYPE + " text not null "
+		    + KEY_GAME_TYPE + " text not null, "
+		    + KEY_PLAYERS + " text not null "
 			
 			// Rest  of creation:
 			+ ");";
@@ -130,7 +134,7 @@ public class DBAdapter {
 	}
 	
 	// Add a new set of values to the database.
-	public long insertRow(double latitude, double longitude, String date, String time, String minAge, String maxAge, int skillLevel, String gender, String pitch, String gameType){
+	public long insertRow(double latitude, double longitude, String date, String time, String minAge, String maxAge, int skillLevel, String gender, String pitch, String gameType, int players){
 		 //
 		 //CHANGE 3:
 		 //		
@@ -149,6 +153,7 @@ public class DBAdapter {
 		initialValues.put(KEY_GENDER, gender);
 		initialValues.put(KEY_PITCH, pitch);
 		initialValues.put(KEY_GAME_TYPE, gameType);
+		initialValues.put(KEY_PLAYERS, players);
 		
 		
 		// Insert it into the database.
@@ -195,7 +200,7 @@ public class DBAdapter {
 	}
 	
 	// Change an existing row to be equal to new data.
-	public boolean updateRow(long rowId, double latitude, double longitude, String date, String time, String minAge, String maxAge, int skillLevel, String gender, String pitch, String gameType) {
+	public boolean updateRow(long rowId, double latitude, double longitude, String date, String time, String minAge, String maxAge, int skillLevel, String gender, String pitch, String gameType, int players) {
 
 		String where = KEY_ROWID + "=" + rowId;
 
@@ -216,6 +221,7 @@ public class DBAdapter {
 		newValues.put(KEY_GENDER, gender);
 		newValues.put(KEY_PITCH, pitch);
 		newValues.put(KEY_GAME_TYPE, gameType);
+		newValues.put(KEY_PLAYERS, players);
 		
 		
 		// Insert it into the database.
