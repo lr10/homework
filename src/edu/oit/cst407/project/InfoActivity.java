@@ -52,9 +52,6 @@ public class InfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_info);
 		
-		//Dialog overlayDialog = new Dialog(this, android.R.style.Theme_Panel);
-		//overlayDialog.show();
-		
 		setupVariables();
 	}
 	
@@ -184,8 +181,8 @@ public class InfoActivity extends Activity {
 	}
 	
 	/**
-	 * This method listens to when the action bar Join or
-	 * Cancel icon is selected.
+	 * This method listens to when the action bar's Join,
+	 * Leave or Cancel icons are selected.
 	 * 
 	 * {@inheritDoc}
 	 */
@@ -211,7 +208,9 @@ public class InfoActivity extends Activity {
 	}
 	
 	/**
-	 * This method adds you to the currently selected game.
+	 * This method closes asked the user if they would like to 
+	 * join the current game.  The user makes a selection and
+	 * returns to the MainActivity.
 	 */
 	public void joinGameClicked() {
 
@@ -260,8 +259,9 @@ public class InfoActivity extends Activity {
 	} 
 	
 	/**
-	 * This method closes the current InfoAcitivty and returns
-	 * to the MainActivity.
+	 * This method closes asked the user if they would like to 
+	 * leave the current game.  The user makes a selection and
+	 * returns to the MainActivity.
 	 */
 	public void leaveGameClicked() {
 		
