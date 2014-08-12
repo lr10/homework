@@ -1,7 +1,275 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<RelativeLayout
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android1:columnCount="1"
+    android1:orientation="horizontal"
     tools:context="${relativePackage}.${activityClass}" >
 
+    <TextView
+        android1:id="@+id/location"
+        android1:layout_width="250dp"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android1:layout_alignParentLeft="true"
+        android1:text="@string/location"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android1:id="@+id/date"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/location"
+        android1:text="@string/date"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android1:id="@+id/time"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/date"
+        android1:text="@string/time"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android1:id="@+id/age"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/time"
+        android1:text="@string/age"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+    
+     <TextView
+        android1:id="@+id/skillLevel"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/age"
+        android1:text="@string/skill_level"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android1:id="@+id/gender"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/skillLevel"
+        android1:text="@string/gender"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android1:id="@+id/pitch"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/gender"
+        android1:text="@string/pitch"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+    
+     <TextView
+        android1:id="@+id/gameType"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="50dp"
+        android1:layout_alignParentLeft="true"
+        android1:layout_below="@+id/pitch"
+        android1:text="@string/game_type"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android1:id="@+id/defaultLocation"
+        android1:layout_width="100dp"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/skillLevelBar"
+        android1:layout_alignParentRight="true"
+        android1:layout_alignTop="@+id/location"
+        android:hint="@string/locationHint"
+        android1:ems="10"
+        android1:textAppearance="?android:attr/textAppearanceLarge" >
+
+        <requestFocus />
+    </EditText>
+
+    <SeekBar
+        android1:id="@+id/skillLevelBar"
+        android1:layout_width="450dp"
+        android1:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android1:layout_below="@+id/minAge"
+        android1:layout_alignParentRight="true"
+        android:max="10" />
+
+    <EditText
+        android1:id="@+id/dateText"
+        android1:layout_width="120dp"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/defaultLocation"
+        android1:layout_alignTop="@+id/date"
+        android1:ems="10"
+        android:hint="@string/dateHint"
+        android:gravity="center"
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:inputType="date" />
+
+    <EditText
+        android1:id="@+id/timeText"
+        android1:layout_width="120dp"
+        android1:layout_height="wrap_content"
+        android1:layout_alignBottom="@+id/time"
+        android1:layout_alignLeft="@+id/dateText"
+        android1:ems="10"
+        android:hint="@string/timeHint"
+        android:gravity="center"
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:inputType="time" />
+
+    <EditText
+        android1:id="@+id/minAge"
+        android1:layout_width="120dp"
+        android1:layout_height="wrap_content"
+        android1:layout_above="@+id/skillLevel"
+        android1:layout_alignLeft="@+id/timeText"
+        android1:ems="10"
+        android:gravity="center"
+        android:hint="@string/minHint"
+        android1:textAppearance="?android:attr/textAppearanceLarge"
+        android1:inputType="number" />
+
+      <EditText
+          android1:id="@+id/maxAge"
+          android1:layout_width="120dp"
+          android1:layout_height="wrap_content"
+          android1:layout_alignBaseline="@+id/minAge"
+          android1:layout_alignBottom="@+id/minAge"
+          android1:layout_alignParentRight="true"
+          android1:ems="10"
+          android1:gravity="center"
+          android1:hint="@string/maxHint"
+          android1:inputType="number"
+          android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+      <TextView
+          android1:id="@+id/to"
+          android1:layout_width="wrap_content"
+          android1:layout_height="wrap_content"
+          android1:layout_alignBaseline="@+id/minAge"
+          android1:layout_alignBottom="@+id/minAge"
+          android1:layout_alignRight="@+id/radioGameType"
+          android1:layout_toRightOf="@+id/minAge"
+          android1:gravity="center"
+          android1:text="@string/to"
+          android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+      <RadioGroup
+          android1:id="@+id/radioGameType"
+          android1:layout_width="wrap_content"
+          android1:layout_height="wrap_content"
+          android1:layout_alignBottom="@+id/gameType"
+          android1:layout_alignLeft="@+id/radioPitch"
+          android1:orientation="horizontal" >
+
+          <RadioButton
+              android1:id="@+id/indoorRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:checked="true"
+              android1:text="@string/indoor"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+          <RadioButton
+              android1:id="@+id/outdoorRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:text="@string/outdoor"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+      </RadioGroup>
+
+      <RadioGroup
+          android1:id="@+id/radioPitch"
+          android1:layout_width="wrap_content"
+          android1:layout_height="wrap_content"
+          android1:layout_above="@+id/gameType"
+          android1:layout_alignLeft="@+id/radioGender"
+          android1:layout_alignParentRight="true"
+          android1:orientation="horizontal" >
+
+          <RadioButton
+              android1:id="@+id/grassRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:checked="true"
+              android1:text="@string/grass"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+          <RadioButton
+              android1:id="@+id/turfRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:text="@string/turf"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+          <RadioButton
+              android1:id="@+id/futsalRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:text="@string/futsal"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+      </RadioGroup>
+
+      <RadioGroup
+          android1:id="@+id/radioGender"
+          android1:layout_width="wrap_content"
+          android1:layout_height="wrap_content"
+          android1:layout_alignBottom="@+id/gender"
+          android1:layout_alignLeft="@+id/skillLevelBar"
+          android1:layout_alignParentRight="true"
+          android1:orientation="horizontal" >
+
+          <RadioButton
+              android1:id="@+id/maleRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:checked="true"
+              android1:text="@string/male"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+          <RadioButton
+              android1:id="@+id/femaleRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:text="@string/female"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+          <RadioButton
+              android1:id="@+id/coedRadio"
+              android1:layout_width="160dp"
+              android1:layout_height="wrap_content"
+              android1:text="@string/coed"
+              android1:textAppearance="?android:attr/textAppearanceLarge" />
+      </RadioGroup>
+
 </RelativeLayout>
+
+</ScrollView>

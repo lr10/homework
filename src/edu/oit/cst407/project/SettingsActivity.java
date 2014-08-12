@@ -1,6 +1,7 @@
 package edu.oit.cst407.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -248,6 +249,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		Toast toast = Toast.makeText(getApplicationContext(), "Preferences saved.", Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
+		
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("mapType", radioBtnText);
+		setResult(RESULT_OK,returnIntent);
 		finish();
 	} 
 	

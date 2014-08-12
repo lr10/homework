@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -39,7 +41,8 @@ public class MainActivity extends Activity implements LocationListener {
 	
 	/**
 	 * This method creates and populates the map that the user will 
-	 * interact with.
+	 * interact with and instructs the user on how to interact with
+	 * map.
 	 * 
 	 * {@inheritDoc}
 	 */
@@ -52,12 +55,6 @@ public class MainActivity extends Activity implements LocationListener {
 		setUpMapIfNeeded();
 		
 		displayToast();
-		
-		//openDB();
-		
-		// IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
-        // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
-		//displayMarkers();
 	}
 	
 	/**
@@ -86,8 +83,6 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		openDB();
 		
-		// IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
-        // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
 		displayMarkers();
 	}
 	
@@ -175,6 +170,55 @@ public class MainActivity extends Activity implements LocationListener {
         	            newgameClicked(latLng.latitude, latLng.longitude);
         	        }
         	    });
+        		
+        		googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                    	
+                    	// Get position of marker
+                    	LatLng pos = marker.getPosition();
+              
+                    	double markerLat = pos.latitude;
+                    	double markerLng = pos.longitude;
+                    	
+                    	// Use position to get row in SQLite database
+                    	
+                    	Cursor cursor = myDb.getAllRows();
+                    	// Reset cursor to start, checking to see if there's data:
+                		if (cursor.moveToFirst()) {
+                			
+                			do {
+                				// Process the data:
+                				if( markerLat == cursor.getDouble(DBAdapter.COL_LATITUDE)){
+                					if(markerLng == cursor.getDouble(DBAdapter.COL_LONGITUDE)){
+                						long row = cursor.getLong(DBAdapter.COL_ROWID);
+                						Cursor current = myDb.getRow(row);
+                                		
+                						// Use row information to populate information activity and display it
+                						Intent infoIntent = new Intent(MainActivity.this, InfoActivity.class);
+                						infoIntent.putExtra("EXTRA_LATITUDE", current.getDouble(DBAdapter.COL_LATITUDE));
+                						infoIntent.putExtra("EXTRA_LONGITUDE", current.getDouble(DBAdapter.COL_LONGITUDE));
+                						infoIntent.putExtra("EXTRA_DATE", current.getString(DBAdapter.COL_DATE));
+                						infoIntent.putExtra("EXTRA_TIME", current.getString(DBAdapter.COL_TIME));
+                						infoIntent.putExtra("EXTRA_AGE_MIN", current.getString(DBAdapter.COL_MIN_AGE));
+                						infoIntent.putExtra("EXTRA_AGE_MAX", current.getString(DBAdapter.COL_MAX_AGE));
+                						infoIntent.putExtra("EXTRA_SKILL_LEVEL", current.getInt(DBAdapter.COL_SKILL_LEVEL));
+                						infoIntent.putExtra("EXTRA_GENDER", current.getString(DBAdapter.COL_GENDER));
+                						infoIntent.putExtra("EXTRA_PITCH", current.getString(DBAdapter.COL_PITCH));
+                						infoIntent.putExtra("EXTRA_GAME_TYPE", current.getString(DBAdapter.COL_GAME_TYPE));
+                						startActivity(infoIntent);
+                	                    current.close();
+                						break;
+                					}
+                				}
+
+                			} while(cursor.moveToNext());		
+                		}
+                		
+                		// Close the cursor to avoid a resource leak.
+                		cursor.close();
+                    }
+                });
                 
             }
         }
@@ -243,33 +287,6 @@ public class MainActivity extends Activity implements LocationListener {
 		 googleMap.addMarker(markerOptions);
 	}
 	
-	/*private void displayMarker( long rowId ){
-		
-		Cursor cursor = myDb.getRow(rowId);
-		
-		// Process the data:
-		double lat = cursor.getDouble(DBAdapter.COL_LATITUDE);
-		double lng = cursor.getDouble(DBAdapter.COL_LONGITUDE);
-		String date = cursor.getString(DBAdapter.COL_DATE);
-		String time = cursor.getString(DBAdapter.COL_TIME);
-		
-		latLng = new LatLng(lat, lng);
-		
-		
-		markerOptions.position(latLng);
-		
-		if( deviceLang.equals("espa–ol")){
-			markerOptions.title("Fecha: " + date).snippet("Hora: " + time);
-		}
-		else{
-			markerOptions.title("Date: " + date).snippet("Time: " + time);
-		}
-		
-		googleMap.addMarker(markerOptions);
-		
-		cursor.close();
-	}*/
-	
 	/**
 	 * This method adds an action bar to the top of the application.
 	 * 
@@ -335,22 +352,38 @@ public class MainActivity extends Activity implements LocationListener {
 		gameIntent.putExtra("EXTRA_LATITUDE",latitude);
 		gameIntent.putExtra("EXTRA_LONGITUDE", longitude);
 		startActivity(gameIntent);
-		//startActivityForResult(gameIntent, 1);
 	} 
 	
-	/*
+	/**
+	 * This method manipulates the map based on the user's saved settings.
+	 * 
+	 * {@inheritDoc}
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 	    if (requestCode == 1) {
 	        if(resultCode == RESULT_OK){
-	            long rowId = data.getLongExtra("rowIdResult", 0);
-	            displayMarker( rowId );
+	        	
+	        	String mapType = data.getStringExtra("mapType");
+	        	
+	        	if( mapType.equals( "Normal") )
+	    		{
+	        		googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+	    		}
+	    		else if( mapType.equals("Hybrid") )
+	    		{
+	    			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+	    		}
+	    		else if( mapType.equals( "Satellite") )
+	    		{
+	    			googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+	    		}
 	        }
 	        if (resultCode == RESULT_CANCELED) {
 	            //Write your code if there's no result
 	        }
 	    }
-	}*/
+	}
 	
 	/**
 	 * This method opens a new SettingsActivity.
@@ -358,7 +391,7 @@ public class MainActivity extends Activity implements LocationListener {
 	public void settingsClicked() {
 	    // do something
 		Intent settingsIntent = new Intent(this, SettingsActivity.class);
-		startActivity(settingsIntent);
+		startActivityForResult(settingsIntent, 1);
 	}
 	
 	/**

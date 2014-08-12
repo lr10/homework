@@ -63,7 +63,7 @@
         android1:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android1:id="@+id/locationText"
+        android1:id="@+id/defaultLocation"
         android1:layout_width="120dp"
         android1:layout_height="wrap_content"
         android1:layout_alignLeft="@+id/skillLevelBar"
@@ -78,7 +78,7 @@
         android1:layout_width="120dp"
         android1:layout_height="wrap_content"
         android1:layout_above="@+id/time"
-        android1:layout_alignLeft="@+id/locationText"
+        android1:layout_alignLeft="@+id/defaultLocation"
         android:gravity="center"
         android:hint="@string/dateHint"
         android1:textAppearance="?android:attr/textAppearanceLarge"

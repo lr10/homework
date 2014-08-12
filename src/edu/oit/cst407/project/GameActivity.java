@@ -33,7 +33,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	public String deviceLang = Locale.getDefault().getDisplayLanguage();
 	private double latitude;
 	private double longitude;
-	//private EditText latLong;
+	private EditText location;
 	private EditText dateText;
 	private EditText timeText;
 	private EditText minAgeText;
@@ -73,14 +73,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	private void setupVariables(){
 		
 		// Widgets
-		Bundle extras = getIntent().getExtras();
-		
-		if (extras != null) {
-		    latitude = extras.getDouble("EXTRA_LATITUDE");
-		    longitude = extras.getDouble("EXTRA_LONGITUDE");
-		}
-		
-		//latLong = (EditText) findViewById(R.id.locationText);
+		location = (EditText) findViewById(R.id.defaultLocation);
 		dateText = (EditText) findViewById(R.id.dateText);
 		timeText = (EditText) findViewById(R.id.timeText);
 		minAgeText = (EditText) findViewById(R.id.minAge);
@@ -91,15 +84,19 @@ public class GameActivity extends Activity implements OnClickListener {
 		radioPitchGroup = (RadioGroup) findViewById(R.id.radioPitch); 
 		radioPitchBtn = (RadioButton) findViewById(R.id.grassRadio); 
 		radioGameTypeGroup = (RadioGroup) findViewById(R.id.radioGameType); 
-		radioGameBtn = (RadioButton) findViewById(R.id.outdoorRadio); 
+		radioGameBtn = (RadioButton) findViewById(R.id.outdoorRadio);
 		
+		Bundle extras = getIntent().getExtras();
 		
-		//String latLng = String.valueOf(latitude) + ", " + String.valueOf(longitude);
-		
-		//latLong.setText(""+latLng);
+		if (extras != null) {
+		    latitude = extras.getDouble("EXTRA_LATITUDE");
+		    longitude = extras.getDouble("EXTRA_LONGITUDE");
+		    location.setText(String.valueOf(latitude).substring(0,10) 
+		    					+ ", " 
+		    					+ String.valueOf(longitude).substring(0,10));
+		}
 		
 		// Listeners
-		//latLong.setOnClickListener(this);
 		dateText.setOnClickListener(this);
 		timeText.setOnClickListener(this);
 		minAgeText.setOnClickListener(this);
@@ -152,6 +149,11 @@ public class GameActivity extends Activity implements OnClickListener {
 	    });	
 	}
 	
+	private String StringvalueOf(double latitude2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * This method calls a function that closes the SQLite Database.
 	 * 
@@ -191,8 +193,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch( v.getId())
 		{
-			//case R.id.locationText	: latLong.setText(latitude + ", " + longitude);
-										//break;
 										
 			case R.id.dateText	 	: dateText.setText("");
 										break;
@@ -276,10 +276,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		Toast toast = Toast.makeText(getApplicationContext(), toastLang, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
-		
-		//Intent returnIntent = new Intent();
-		//returnIntent.putExtra("rowIdResult", rowId);
-		//setResult(RESULT_OK,returnIntent);
 		finish();
 	} 
 	
