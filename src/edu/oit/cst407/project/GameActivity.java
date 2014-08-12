@@ -3,6 +3,7 @@ package edu.oit.cst407.project;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -260,7 +261,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		String pitchBtn = radioPitchBtn.getText().toString();
 		String gameBtn = radioGameBtn.getText().toString();
 		
-		long newId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn);
+		long rowId = myDb.insertRow(latitude, longitude, date, time, min, max, skillLevel, genderBtn, pitchBtn, gameBtn);
 		
 		String toastLang;
 		
@@ -275,6 +276,10 @@ public class GameActivity extends Activity implements OnClickListener {
 		Toast toast = Toast.makeText(getApplicationContext(), toastLang, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 		toast.show();
+		
+		//Intent returnIntent = new Intent();
+		//returnIntent.putExtra("rowIdResult", rowId);
+		//setResult(RESULT_OK,returnIntent);
 		finish();
 	} 
 	
@@ -283,6 +288,8 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * to the MainActivity.
 	 */
 	public void cancelClicked() {
+		Intent returnIntent = new Intent();
+		setResult(RESULT_CANCELED, returnIntent);
 		finish();
 	}
 }

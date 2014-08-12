@@ -53,11 +53,11 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		displayToast();
 		
-		openDB();
+		//openDB();
 		
 		// IF USER DOES NOT CLICK SAVE IN GAMEACTIVITY, DO NOT ADD MARKER TO MAP
         // OR IF NO INFO IS RETURNED FROM GAMEACTIVITY?
-		displayMarkers();
+		//displayMarkers();
 	}
 	
 	/**
@@ -204,6 +204,7 @@ public class MainActivity extends Activity implements LocationListener {
 		
 		// Reset cursor to start, checking to see if there's data:
 		if (cursor.moveToFirst()) {
+			
 			do {
 				// Process the data:
 				double lat = cursor.getDouble(DBAdapter.COL_LATITUDE);
@@ -231,7 +232,6 @@ public class MainActivity extends Activity implements LocationListener {
 	private void addMarkers(LatLng latLng, String date, String time){
 		
 		markerOptions.position(latLng);
-        googleMap.addMarker(markerOptions);
 		
 		if( deviceLang.equals("espa–ol")){
 			markerOptions.title("Fecha: " + date).snippet("Hora: " + time);
@@ -239,7 +239,36 @@ public class MainActivity extends Activity implements LocationListener {
 		else{
 			markerOptions.title("Date: " + date).snippet("Time: " + time);
 		}
+		
+		 googleMap.addMarker(markerOptions);
 	}
+	
+	/*private void displayMarker( long rowId ){
+		
+		Cursor cursor = myDb.getRow(rowId);
+		
+		// Process the data:
+		double lat = cursor.getDouble(DBAdapter.COL_LATITUDE);
+		double lng = cursor.getDouble(DBAdapter.COL_LONGITUDE);
+		String date = cursor.getString(DBAdapter.COL_DATE);
+		String time = cursor.getString(DBAdapter.COL_TIME);
+		
+		latLng = new LatLng(lat, lng);
+		
+		
+		markerOptions.position(latLng);
+		
+		if( deviceLang.equals("espa–ol")){
+			markerOptions.title("Fecha: " + date).snippet("Hora: " + time);
+		}
+		else{
+			markerOptions.title("Date: " + date).snippet("Time: " + time);
+		}
+		
+		googleMap.addMarker(markerOptions);
+		
+		cursor.close();
+	}*/
 	
 	/**
 	 * This method adds an action bar to the top of the application.
@@ -301,12 +330,27 @@ public class MainActivity extends Activity implements LocationListener {
 	 * @param longitude the longitude of the location where the user wants to create a game
 	 */
 	public void newgameClicked(double latitude, double longitude) {
-	    // do something
+	    
 		Intent gameIntent = new Intent(getApplicationContext(), GameActivity.class);
 		gameIntent.putExtra("EXTRA_LATITUDE",latitude);
 		gameIntent.putExtra("EXTRA_LONGITUDE", longitude);
 		startActivity(gameIntent);
+		//startActivityForResult(gameIntent, 1);
 	} 
+	
+	/*
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+	    if (requestCode == 1) {
+	        if(resultCode == RESULT_OK){
+	            long rowId = data.getLongExtra("rowIdResult", 0);
+	            displayMarker( rowId );
+	        }
+	        if (resultCode == RESULT_CANCELED) {
+	            //Write your code if there's no result
+	        }
+	    }
+	}*/
 	
 	/**
 	 * This method opens a new SettingsActivity.
